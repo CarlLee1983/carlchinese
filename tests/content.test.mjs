@@ -6,7 +6,7 @@ import { parseWork } from '../src/content/works.mjs';
 
 const samples = [
   ['040-遊子吟.md', '遊子吟', 6],
-  ['099-春望.md', '春望', 8],
+  ['098-春望.md', '春望', 8],
   ['226-靜夜思.md', '靜夜思', 4],
 ];
 

@@ -4,7 +4,7 @@
 
 ## 檔案與 Frontmatter
 
-每件作品一個 Markdown 檔：作品資料放在 frontmatter，正文以 directive 標出區塊與層次。路徑為 `content/<系列 id>/<檔名>.md`，例如 `content/tang300/099-春望.md`；所屬系列由目錄決定。
+每件作品一個 Markdown 檔：作品資料放在 frontmatter，正文以 directive 標出區塊與層次。路徑為 `content/<系列 id>/<檔名>.md`，例如 `content/tang300/098-春望.md`；所屬系列由目錄決定。
 
 以下範例示意欄位形狀，不表示已查核該書或篇卷：
 
@@ -12,7 +12,7 @@
 title: 春望
 author: 杜甫
 dynasty: 唐
-number: 99                           # 底本序號（1–313），系列內穩定識別
+number: 98                           # 底本序號（1–313），系列內穩定識別
 volume: 5                           # 底本卷次（1–8）
 form: 五言律詩                      # 底本體裁；其他分類在賞析交代
 # source_title: …                    # 底本題名與通行題名不同時才填

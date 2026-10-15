@@ -25,7 +25,7 @@ Astro, pnpm, `node --test`, Playwright, and `pnpm run verify` are planned. Verif
 
 Write reader-facing content in Traditional Chinese using `CONTEXT.md` terminology. Follow existing YAML indentation and the schema's section ordering and Chinese directives.
 
-Name works with a three-digit base-edition number and common title, such as `099-春望.md`; grouped poems add `-其一`. Preserve stable series-plus-number identities. Register sources once per work and reference their IDs. Keep factual claims, literary interpretation, and teaching imagination visibly distinct.
+Name works with a three-digit base-edition number and common title, such as `098-春望.md`; grouped poems add `-其一`. Preserve stable series-plus-number identities. Register sources once per work and reference their IDs. Keep factual claims, literary interpretation, and teaching imagination visibly distinct.
 
 ## Testing Guidelines
 
