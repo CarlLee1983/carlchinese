@@ -9,7 +9,8 @@
 ## Frontmatter
 
 ```yaml
-title: 靜夜思
+title: 靜夜思                          # 通行題名
+source_title: 夜思                     # 底本題名，與 title 不同時才填
 author: 李白
 dynasty: 唐
 series: tang300
@@ -39,7 +40,7 @@ variants:                              # 異文
     edition: …
 ```
 
-檔名與網址為「三位數序號-標題」，組詩加「-其N」，例如 `001-感遇-其一.md`；序號與標題不一致時以序號為準。系列目錄依 `number`（即原書卷次與體裁）排序。
+檔名與網址為「三位數序號-通行題名」，組詩加「-其N」，例如 `001-感遇-其一.md`；序號與標題不一致時以序號為準。系列目錄依 `number`（即原書卷次與體裁）排序。
 
 原文區塊的欄位不需要標示層次；`readings`、`rhymes`、`variants` 的每一項都視為史實，`source` 或 `edition` 為必填。
 
