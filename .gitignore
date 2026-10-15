@@ -1,5 +1,10 @@
-.scratch/
-graft/
 node_modules/
 dist/
+.scratch/
 .DS_Store
+.astro/
+playwright-report/
+test-results/
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+graft/
