@@ -1,5 +1,6 @@
 ---
 import { loadWorks } from '../../content/works.mjs';
+import SourceRecords from '../../components/SourceRecords.astro';
 
 export async function getStaticPaths() {
   const works = await loadWorks();
@@ -7,7 +8,7 @@ export async function getStaticPaths() {
 }
 
 const { work } = Astro.props;
-const { title, author, dynasty, text } = work.frontmatter;
+const { title, author, dynasty, text, source_title, collated_from, readings = [], rhymes = [], variants = [], title_notes = [], text_notes = [], sources } = work.frontmatter;
 ---
 
 <!doctype html>
@@ -18,22 +19,62 @@ const { title, author, dynasty, text } = work.frontmatter;
     <title>{title}｜CarlChinese</title>
     <style>
       :root { color: #241f1a; background: #f7f5f0; font-family: ui-serif, "Noto Serif TC", serif; }
-      body { max-width: 42rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+      * { box-sizing: border-box; }
+      body { max-width: 42rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; overflow-wrap: anywhere; }
       h1 { font-size: clamp(2.3rem, 7vw, 3.5rem); margin-bottom: .25rem; }
+      h2 { font-size: 1.35rem; margin: 2.4rem 0 .7rem; }
       .byline { color: #665c50; margin-bottom: 3rem; }
       .poem { font-size: clamp(1.35rem, 4vw, 1.7rem); line-height: 2.2; letter-spacing: .08em; }
       .poem p { margin: 0; }
-      .punctuation { color: #665c50; font-size: .95rem; margin-top: 2rem; }
+      .punctuation, .edition { color: #665c50; }
+      .punctuation { font-size: .95rem; margin: 2rem 0; }
+      .edition { margin: .3rem 0; }
+      .annotation-list { list-style: none; padding: 0; margin: 0; }
+      .annotation-list > li { padding: .7rem 0; border-top: 1px solid #d9d1c6; }
+      .annotation-list > li:first-child { border-top: 0; }
+      .annotation-text { margin: 0; line-height: 1.8; }
+      .source-register { border-top: 1px solid #d9d1c6; margin-top: 3rem; }
     </style>
   </head>
   <body>
     <main>
       <h1>{title}</h1>
       <p class="byline">{author}・{dynasty}</p>
-      <section aria-label="原文" class="poem">
-        {text.map((line) => <p data-poem-line>{line}</p>)}
+      <section aria-label="原文">
+        <div class="poem">
+          {text.map((line) => <p data-poem-line>{line}</p>)}
+        </div>
+        <p class="punctuation">標點為本站編輯所加</p>
+        <p class="edition">底本：四藤吟社 313 首本（決定篇目、序號及體裁）</p>
+        {source_title && <p class="edition">底本題名：{source_title}</p>}
+        <section aria-label="校字依據">
+          <h2>正文校字依據</h2>
+          <p>以下為本篇實際互校的文本；底本不等於正文唯一來源。</p>
+          <ul class="annotation-list">
+            {collated_from.map((id) => <li data-annotation="collation"><SourceRecords refs={[id]} sources={sources} /></li>)}
+          </ul>
+        </section>
+        {readings.length > 0 && <section aria-label="讀音"><h2>讀音</h2><ul class="annotation-list">
+          {readings.map((item) => <li data-annotation="reading"><p class="annotation-text">{item.char}｜{item.zhuyin}{item.reason && `｜${item.reason}`}</p><SourceRecords refs={item.refs} sources={sources} /></li>)}
+        </ul></section>}
+        {rhymes.length > 0 && <section aria-label="押韻古讀"><h2>押韻古讀</h2><ul class="annotation-list">
+          {rhymes.map((item) => <li data-annotation="rhyme"><p class="annotation-text">{item.char}｜{item.note}</p><SourceRecords refs={item.refs} sources={sources} /></li>)}
+        </ul></section>}
+        {variants.length > 0 && <section aria-label="異文"><h2>異文</h2><ul class="annotation-list">
+          {variants.map((item) => <li data-annotation="variant"><p class="annotation-text">第 {item.line} 句｜{item.kind}｜{item.reading}（本頁：{text[item.line - 1]}）</p><SourceRecords refs={item.refs} sources={sources} /></li>)}
+        </ul></section>}
+        {title_notes.length > 0 && <section aria-label="題注"><h2>版本題注</h2><ul class="annotation-list">
+          {title_notes.map((item) => <li data-annotation="title-note"><p class="annotation-text">{item.text}</p><SourceRecords refs={item.refs} sources={sources} /></li>)}
+        </ul></section>}
+        {text_notes.length > 0 && <section aria-label="文字註記"><h2>文字註記</h2><ul class="annotation-list">
+          {text_notes.map((item) => <li data-annotation="text-note"><p class="annotation-text">{item.text}</p><SourceRecords refs={item.refs} sources={sources} /></li>)}
+        </ul></section>}
       </section>
-      <p class="punctuation">標點為本站編輯所加</p>
+      <section class="source-register" aria-label="來源登錄">
+        <h2>來源登錄</h2>
+        <p>本篇登錄的來源及查證狀態，供各段引用逐筆查閱。</p>
+        <SourceRecords refs={Object.keys(sources)} sources={sources} />
+      </section>
     </main>
   </body>
 </html>

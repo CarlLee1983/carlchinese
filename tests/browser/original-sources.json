@@ -1,0 +1,220 @@
+{
+  "040-遊子吟": {
+    "chen_bu_zhu_1": {
+      "source": "陳婉俊《唐詩三百首補注》卷一（光緒十一年四藤吟社重刻本）",
+      "locator": "正文",
+      "era": "後世古籍",
+      "checked": "已核書影"
+    },
+    "zhang_zhu_shu_1": {
+      "source": "章燮《唐詩三百首註疏》卷一（1917 年章福記書局本）",
+      "locator": "正文",
+      "era": "現代資料",
+      "checked": "已核書影"
+    },
+    "meng_dongye_1": {
+      "source": "《孟東野詩集》卷第一（四部叢刊景明弘治本）",
+      "locator": "卷第一〈遊子吟〉正文",
+      "era": "後世古籍",
+      "checked": "已核書影"
+    },
+    "quan_tang_shi_1": {
+      "source": "《全唐詩》卷三七二（四庫全書本）",
+      "locator": "卷三七二〈遊子吟〉題下注、正文與異文注",
+      "era": "後世古籍",
+      "checked": "已核書影",
+      "url": "https://commons.wikimedia.org/w/index.php?title=File:CADAL06060036_%E5%BE%A1%E5%AE%9A%E5%85%A8%E5%94%90%E8%A9%A9%C2%B7%E5%8D%B7%E4%B8%89%E7%99%BE%E4%B8%83%E5%8D%81%E4%B8%80~%E5%8D%B7%E4%B8%89%E7%99%BE%E4%B8%83%E5%8D%81%E4%BA%94.djvu&page=43"
+    },
+    "yue_fu_shi_ji_1": {
+      "source": "郭茂倩《樂府詩集》卷六十七（四部叢刊本）",
+      "locator": "卷六十七〈遊子吟〉正文",
+      "era": "後世古籍",
+      "checked": "已核書影"
+    },
+    "moe_concise_1": {
+      "source": "教育部《國語辭典簡編本》",
+      "locator": "「寸」字／詞條",
+      "era": "現代資料",
+      "checked": "僅核錄文"
+    },
+    "moe_concise_2": {
+      "source": "教育部《國語辭典簡編本》",
+      "locator": "「暉」字／詞條",
+      "era": "現代資料",
+      "checked": "僅核錄文"
+    },
+    "guang_yun_2": {
+      "source": "《廣韻》",
+      "locator": "上平聲八微：衣，於希切；歸，舉韋切；暉，許歸切",
+      "era": "後世古籍",
+      "checked": "未記錄",
+      "url": "https://ytenx.org/kyonh/yonhmiuk/%E5%BE%AE/",
+      "note": "前稿未留下此筆查核方式，待核。"
+    },
+    "gao_tang_shi_1": {
+      "source": "高棅《唐詩品彙》卷二十",
+      "locator": "所引異文",
+      "era": "後世古籍",
+      "checked": "僅核錄文"
+    },
+    "yang_tang_yin_1": {
+      "source": "楊士弘《唐音》卷十二",
+      "locator": "所引異文",
+      "era": "後世古籍",
+      "checked": "僅核錄文"
+    },
+    "moe_variants_1": {
+      "source": "教育部《異體字字典》",
+      "locator": "「遊」字（A04158）",
+      "era": "現代資料",
+      "checked": "僅核錄文"
+    },
+    "moe_variants_2": {
+      "source": "教育部《異體字字典》",
+      "locator": "「游」字（A02249）",
+      "era": "現代資料",
+      "checked": "僅核錄文"
+    },
+    "tang_shi_gui_1": {
+      "source": "鍾惺、譚元春《唐詩歸》卷三十一（引鍾惺）",
+      "locator": "所引評語或注釋",
+      "era": "後世古籍",
+      "checked": "已核書影",
+      "note": "所見書影解析度低，所引「仁孝」的「仁」字待核。"
+    }
+  },
+  "099-春望": {
+    "quan_tang_shi_1": {
+      "source": "《全唐詩》卷二二四",
+      "locator": "正文",
+      "era": "後世古籍",
+      "checked": "僅核錄文"
+    },
+    "qiu_du_shi_1": {
+      "source": "仇兆鰲《杜詩詳註》卷四",
+      "locator": "正文",
+      "era": "後世古籍",
+      "checked": "僅核錄文"
+    },
+    "moe_concise_1": {
+      "source": "教育部《國語辭典簡編本》",
+      "locator": "「濺」字／詞條",
+      "era": "現代資料",
+      "checked": "僅核錄文"
+    },
+    "moe_concise_2": {
+      "source": "教育部《國語辭典簡編本》",
+      "locator": "「恨」字／詞條",
+      "era": "現代資料",
+      "checked": "僅核錄文"
+    },
+    "moe_concise_3": {
+      "source": "教育部《國語辭典簡編本》",
+      "locator": "「烽」字／詞條",
+      "era": "現代資料",
+      "checked": "僅核錄文"
+    },
+    "moe_concise_4": {
+      "source": "教育部《國語辭典簡編本》",
+      "locator": "「搔」字／詞條",
+      "era": "現代資料",
+      "checked": "僅核錄文"
+    },
+    "moe_concise_5": {
+      "source": "教育部《國語辭典簡編本》",
+      "locator": "「更」字／詞條",
+      "era": "現代資料",
+      "checked": "僅核錄文"
+    },
+    "moe_concise_6": {
+      "source": "教育部《國語辭典簡編本》",
+      "locator": "「欲」字／詞條",
+      "era": "現代資料",
+      "checked": "僅核錄文"
+    },
+    "moe_concise_7": {
+      "source": "教育部《國語辭典簡編本》",
+      "locator": "「不勝」條",
+      "era": "現代資料",
+      "checked": "僅核錄文"
+    },
+    "qiu_du_shi_2": {
+      "source": "仇兆鰲《杜詩詳註》",
+      "locator": "卷四「勝」下注「平聲」",
+      "era": "後世古籍",
+      "checked": "僅核錄文"
+    },
+    "moe_concise_8": {
+      "source": "教育部《國語辭典簡編本》",
+      "locator": "「簪」字／詞條",
+      "era": "現代資料",
+      "checked": "僅核錄文"
+    },
+    "moe_revised_1": {
+      "source": "教育部《重編國語辭典修訂本》「簪（又音）」",
+      "locator": "押韻／讀音條",
+      "era": "現代資料",
+      "checked": "僅核錄文"
+    },
+    "qiu_du_shi_3": {
+      "source": "仇兆鰲《杜詩詳註》",
+      "locator": "卷四「春」下注「一作荒」",
+      "era": "後世古籍",
+      "checked": "僅核錄文"
+    }
+  },
+  "226-靜夜思": {
+    "chen_bu_zhu_1": {
+      "source": "陳婉俊《唐詩三百首補注》卷七（光緒十一年四藤吟社重刻本）",
+      "locator": "卷七〈夜思〉正文",
+      "era": "後世古籍",
+      "checked": "已核書影"
+    },
+    "zhang_zhu_shu_1": {
+      "source": "章燮《唐詩三百首註疏》卷六上",
+      "locator": "正文",
+      "era": "後世古籍",
+      "checked": "已核書影"
+    },
+    "li_taibai_wenji_1": {
+      "source": "《李太白文集》（四庫全書本）",
+      "locator": "卷五〈樂府四〉〈靜夜思〉正文與編類",
+      "era": "後世古籍",
+      "checked": "僅核錄文",
+      "url": "https://zh.wikisource.org/wiki/李太白文集_(四庫全書本)/卷05"
+    },
+    "quan_tang_shi_1": {
+      "source": "《全唐詩》（四庫全書本）",
+      "locator": "卷一六五〈靜夜思〉正文",
+      "era": "後世古籍",
+      "checked": "已核書影"
+    },
+    "moe_concise_1": {
+      "source": "教育部《國語辭典簡編本》",
+      "locator": "「霜」字／詞條",
+      "era": "現代資料",
+      "checked": "僅核錄文"
+    },
+    "yue_fu_shi_ji_1": {
+      "source": "郭茂倩《樂府詩集》（四庫全書本）",
+      "locator": "卷九十〈新樂府辭〉〈靜夜思〉正文與編類",
+      "era": "後世古籍",
+      "checked": "僅核錄文",
+      "url": "https://zh.wikisource.org/wiki/樂府詩集_(四庫全書本)/卷090"
+    },
+    "moe_variants_1": {
+      "source": "教育部《異體字字典》",
+      "locator": "「床」字（A02375）",
+      "era": "現代資料",
+      "checked": "僅核錄文",
+      "url": "https://dict.variants.moe.edu.tw/dictView.jsp?ID=13171"
+    },
+    "gao_tang_shi_1": {
+      "source": "高棅《唐詩品彙》",
+      "locator": "卷三十九〈靜夜思〉正文",
+      "era": "後世古籍",
+      "checked": "僅核錄文",
+      "url": "https://zh.wikisource.org/wiki/唐詩品彚_(四庫全書本)/卷39"
+    }
+  }
+}

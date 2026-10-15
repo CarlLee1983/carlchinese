@@ -68,6 +68,17 @@ export function parseWork({ filePath, source }) {
       }
       if (rule.kind === 'text') {
         if (typeof value[key] !== 'string' || !value[key].trim()) atFront(`${field} 須為非空文字`, child);
+      } else if (rule.kind === 'url') {
+        let valid = typeof value[key] === 'string' && /^https?:\/\//i.test(value[key]);
+        if (valid) {
+          try {
+            const url = new URL(value[key]);
+            valid = ['http:', 'https:'].includes(url.protocol) && Boolean(url.hostname);
+          } catch {
+            valid = false;
+          }
+        }
+        if (!valid) atFront(`${field} 須為絕對 http/https 網址`, child);
       } else if (rule.kind === 'integer') {
         if (!Number.isInteger(value[key]) || value[key] < rule.min || value[key] > rule.max) atFront(`${field} 超出範圍 ${rule.min}–${rule.max}`, child);
       } else if (rule.kind === 'boolean') {
@@ -108,7 +119,7 @@ export function parseWork({ filePath, source }) {
     variants: { kind: 'array', optional: true, entry: { kind: 'object', schema: { line: { kind: 'integer', min: 1, max: 313 }, reading: text, kind: { kind: 'enum', values: ['正文', '一作'] }, refs } } },
     title_notes: { ...note, kind: 'array', optional: true, entry: note },
     text_notes: { kind: 'array', optional: true, entry: note },
-    sources: { kind: 'record', schema: { source: text, locator: text, era: { kind: 'enum', values: eras }, checked: { kind: 'enum', values: checks }, url: { ...text, optional: true }, note: { ...text, optional: true } } },
+    sources: { kind: 'record', schema: { source: text, locator: text, era: { kind: 'enum', values: eras }, checked: { kind: 'enum', values: checks }, url: { kind: 'url', optional: true }, note: { ...text, optional: true } } },
   }, 'frontmatter');
   /** @type {Frontmatter} Validated by the complete frontmatter schema above. */
   const frontmatter = rawFrontmatter;

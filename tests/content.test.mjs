@@ -124,6 +124,11 @@ test('small complete fixture passes the public loader', () => {
   assert.equal(work.frontmatter.text[1], '明月照故園。');
 });
 
+test('source accepts an absolute public HTTPS URL', () => {
+  const source = fixture.replace('    checked: 僅核錄文', '    checked: 僅核錄文\n    url: https://example.org/卷一');
+  assert.equal(parseWork({ filePath: fixturePath, source }).frontmatter.sources.book.url, 'https://example.org/卷一');
+});
+
 const invalid = [
   ['missing required field', 'author: 甲\n', '', /author.*必填/],
   ['empty source reference', 'collated_from: [book]', 'collated_from: []', /至少 1 項/],
@@ -131,6 +136,8 @@ const invalid = [
   ['invalid enum', 'era: 後世古籍', 'era: 其他', /era.*無效值/],
   ['unknown era without note', 'era: 後世古籍', 'era: 待考', /待考必須說明/],
   ['unrecorded check without note', 'checked: 僅核錄文', 'checked: 未記錄', /未記錄必須說明/],
+  ['malformed source URL', '    checked: 僅核錄文', '    checked: 僅核錄文\n    url: not-a-url', /url.*http\/https/, /:17:10:/],
+  ['javascript source URL', '    checked: 僅核錄文', '    checked: 僅核錄文\n    url: javascript:alert(1)', /url.*http\/https/, /:17:10:/],
   ['variant outside poem', 'sources:\n', 'variants:\n  - line: 3\n    reading: 異文\n    kind: 正文\n    refs: [book]\nsources:\n', /超出詩句數/],
   ['mismatched number', 'number: 1', 'number: 2', /檔名與序號/],
   ['bare paragraph', ':::史實{refs="book"}\n春風是風。\n:::', '春風是風。', /須包在標示層次/],
@@ -155,12 +162,13 @@ const invalid = [
   ['overlong alphanumeric oral sentence', '我們一起讀。', `${'A'.repeat(26)}。`, /句長.*超過 25/],
 ];
 
-for (const [name, before, after, reason] of invalid) {
+for (const [name, before, after, reason, position] of invalid) {
   test(`loader rejects ${name} with file, line, column and reason`, () => {
     const source = fixture.replace(before, after);
     assert.notEqual(source, fixture);
     assert.throws(() => parseWork({ filePath: fixturePath, source }), (error) => {
       assert.match(error.message, /^\/fixtures\/tang300\/001-試讀\.md:\d+:\d+:/);
+      if (position) assert.match(error.message, position);
       assert.match(error.message, reason);
       return true;
     });
