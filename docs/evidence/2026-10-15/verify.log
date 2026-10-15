@@ -2,7 +2,7 @@ $ pnpm run check && pnpm run validate:content && pnpm run test:content && pnpm r
 $ astro check
 16:33:53 [types] Generated 120ms
 16:33:53 [check] Getting diagnostics for Astro files in /Users/carl/Dev/Carl/CarlChinese...
-Result (12 files): 
+Result (12 files):
 - 0 errors
 - 0 warnings
 - 0 hints
@@ -74,13 +74,13 @@ $ astro build
 16:33:59 [vite] ✓ built in 25ms
 16:33:59 [build] Rearranging server assets...
 
- generating static routes 
-16:34:00   ├─ /tang300/099-春望/index.html (+24ms) 
-16:34:00   ├─ /tang300/040-遊子吟/index.html (+8ms) 
-16:34:00   ├─ /tang300/098-春望/index.html (+3ms) 
-16:34:00   ├─ /tang300/226-靜夜思/index.html (+7ms) 
-16:34:00   ├─ /tang300/index.html (+39ms) 
-16:34:00   ├─ /index.html (+3ms) 
+ generating static routes
+16:34:00   ├─ /tang300/099-春望/index.html (+24ms)
+16:34:00   ├─ /tang300/040-遊子吟/index.html (+8ms)
+16:34:00   ├─ /tang300/098-春望/index.html (+3ms)
+16:34:00   ├─ /tang300/226-靜夜思/index.html (+7ms)
+16:34:00   ├─ /tang300/index.html (+39ms)
+16:34:00   ├─ /index.html (+3ms)
 16:34:00 ✓ Completed in 319ms.
 
 16:34:00 [build] ✓ Completed in 657ms.
@@ -99,12 +99,12 @@ $ CARLCHINESE_GROUP_FIXTURE=1 astro build
 16:34:01 [vite] ✓ built in 15ms
 16:34:01 [build] Rearranging server assets...
 
- generating static routes 
-16:34:01   ├─ /tang300/099-春望/index.html (+10ms) 
-16:34:01   ├─ /tang300/198-遣悲懷-其一/index.html (+6ms) 
-16:34:01   ├─ /tang300/199-遣悲懷-其二/index.html (+2ms) 
-16:34:01   ├─ /tang300/index.html (+16ms) 
-16:34:01   ├─ /index.html (+2ms) 
+ generating static routes
+16:34:01   ├─ /tang300/099-春望/index.html (+10ms)
+16:34:01   ├─ /tang300/198-遣悲懷-其一/index.html (+6ms)
+16:34:01   ├─ /tang300/199-遣悲懷-其二/index.html (+2ms)
+16:34:01   ├─ /tang300/index.html (+16ms)
+16:34:01   ├─ /index.html (+2ms)
 16:34:01 ✓ Completed in 139ms.
 
 16:34:01 [build] ✓ Completed in 401ms.
