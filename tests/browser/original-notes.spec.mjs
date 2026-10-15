@@ -101,11 +101,12 @@ for (const item of cases) for (const [device, viewport] of Object.entries({ desk
 
 test('unresolved source details and URL availability stay explicit', async ({ page }) => {
   await page.goto('/tang300/040-遊子吟/');
-  const record = page.locator('[data-source-id="tang_shi_gui_1"]');
+  const register = page.getByRole('region', { name: '來源登錄' });
+  const record = register.locator('[data-source-id="tang_shi_gui_1"]');
   await expectSource(record, expectedSources['040-遊子吟'].tang_shi_gui_1);
   await expect(record).toContainText('已核書影');
   await expect(record).toContainText('「仁」字待核');
   await expect(record.locator('a')).toHaveCount(0);
-  const linked = page.locator('[data-source-id="quan_tang_shi_1"]').first();
+  const linked = register.locator('[data-source-id="quan_tang_shi_1"]');
   await expect(linked.locator('a')).toHaveAttribute('href', /^https:\/\//);
 });

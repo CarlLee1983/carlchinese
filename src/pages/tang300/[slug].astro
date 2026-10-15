@@ -1,6 +1,7 @@
 ---
 import { loadReadingContent } from '../../content/reading-content.mjs';
 import SourceRecords from '../../components/SourceRecords.astro';
+import MarkedParagraph from '../../components/MarkedParagraph.astro';
 
 export async function getStaticPaths() {
   const { works } = await loadReadingContent();
@@ -9,6 +10,7 @@ export async function getStaticPaths() {
 
 const { work, previous, next } = Astro.props;
 const { title, author, dynasty, text, source_title, collated_from, readings = [], rhymes = [], variants = [], title_notes = [], text_notes = [], sources } = work.frontmatter;
+const analysis = work.sections.find((section) => section.title === '深入賞析');
 ---
 
 <!doctype html>
@@ -18,7 +20,7 @@ const { title, author, dynasty, text, source_title, collated_from, readings = []
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}｜CarlChinese</title>
     <style>
-      :root { color: #241f1a; background: #f7f5f0; font-family: ui-serif, "Noto Serif TC", serif; }
+      :root { color: #241f1a; background: #f7f5f0; font-family: ui-serif, "Noto Serif TC", serif; --layer-fact: #326782; --layer-reading: #55704b; --layer-opinion: #a45b2d; --layer-imagination: #79578c; }
       * { box-sizing: border-box; }
       body { max-width: 42rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; overflow-wrap: anywhere; }
       h1 { font-size: clamp(2.3rem, 7vw, 3.5rem); margin-bottom: .25rem; }
@@ -34,6 +36,16 @@ const { title, author, dynasty, text, source_title, collated_from, readings = []
       .annotation-list > li:first-child { border-top: 0; }
       .annotation-text { margin: 0; line-height: 1.8; }
       .source-register { border-top: 1px solid #d9d1c6; margin-top: 3rem; }
+      .layer-legend { margin: 1.5rem 0 2.5rem; padding: .8rem 1rem; border: 1px solid #d9d1c6; font: .9rem/1.6 system-ui, sans-serif; }
+      .layer-legend p { margin: 0 0 .5rem; }
+      .layer-legend ul { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin: 0; padding: 0; }
+      .layer-legend li { padding-left: .55rem; border-left: .3rem solid; }
+      .layer-legend .fact { border-color: var(--layer-fact); }
+      .layer-legend .reading { border-color: var(--layer-reading); }
+      .layer-legend .opinion { border-color: var(--layer-opinion); border-left-style: dashed; }
+      .layer-legend .imagination { border-color: var(--layer-imagination); }
+      .analysis-subsection { margin-top: 2rem; }
+      .analysis-subsection h3 { font-size: 1.15rem; margin-bottom: .8rem; }
       a { color: #7c351f; text-underline-offset: .2em; }
       .work-nav { display: flex; flex-wrap: wrap; gap: 1rem; border-top: 1px solid #d9d1c6; margin-top: 3rem; padding-top: 1.5rem; }
     </style>
@@ -42,6 +54,15 @@ const { title, author, dynasty, text, source_title, collated_from, readings = []
     <main>
       <h1>{title}</h1>
       <p class="byline">{author}・{dynasty}</p>
+      <aside class="layer-legend" data-layer-legend aria-label="標示層次圖例">
+        <p>段落左側色條表示標示層次：</p>
+        <ul>
+          <li class="fact">史實</li>
+          <li class="reading">文學解讀・通行說法與白話轉述</li>
+          <li class="opinion">文學解讀・本站觀點</li>
+          <li class="imagination">教學想像</li>
+        </ul>
+      </aside>
       <section aria-label="原文">
         <div class="poem">
           {text.map((line) => <p data-poem-line>{line}</p>)}
@@ -71,6 +92,13 @@ const { title, author, dynasty, text, source_title, collated_from, readings = []
         {text_notes.length > 0 && <section aria-label="文字註記"><h2>文字註記</h2><ul class="annotation-list">
           {text_notes.map((item) => <li data-annotation="text-note"><p class="annotation-text">{item.text}</p><SourceRecords refs={item.refs} sources={sources} /></li>)}
         </ul></section>}
+      </section>
+      <section aria-label="深入賞析">
+        <h2>深入賞析</h2>
+        {analysis?.subsections.map((subsection) => <section class="analysis-subsection" aria-label={subsection.title}>
+          <h3>{subsection.title}</h3>
+          {subsection.paragraphs.map((paragraph) => 'paragraphs' in paragraph && <MarkedParagraph paragraph={paragraph} sources={sources} />)}
+        </section>)}
       </section>
       <section class="source-register" aria-label="來源登錄">
         <h2>來源登錄</h2>
