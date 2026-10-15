@@ -1,0 +1,171 @@
+$ pnpm run check && pnpm run validate:content && pnpm run test:content && pnpm run build && pnpm run test:group-fixture && pnpm run test:browser
+$ astro check
+17:18:02 [types] Generated 222ms
+17:18:02 [check] Getting diagnostics for Astro files in /Users/carl/Dev/Carl/CarlChinese...
+Result (13 files):
+- 0 errors
+- 0 warnings
+- 0 hints
+
+$ node scripts/validate-content.mjs
+已驗證 313 首篇目與 3 篇可讀作品
+$ node --test tests/*.test.mjs
+✔ formal reading entry joins the 313 base-edition entries to the three readable works (175.90575ms)
+✔ formal reading entry rejects a swapped title with catalogue position (10.553709ms)
+✔ formal catalogue rejects an ungrouped middle poem even when the last part exists (9.926208ms)
+✔ formal catalogue keeps one group's source title consistent (3.316708ms)
+✔ formal catalogue keeps one group's TOC page consistent (3.0235ms)
+✔ formal reading entry accepts reordered group fields in valid work frontmatter (21.294375ms)
+✔ formal loader retains every real work and its four question levels (175.979167ms)
+✔ small complete fixture passes the public loader (22.681208ms)
+✔ source accepts an absolute public HTTPS URL (18.49475ms)
+✔ loader rejects missing required field with file, line, column and reason (1.520667ms)
+✔ loader rejects empty source reference with file, line, column and reason (0.822041ms)
+✔ loader rejects unknown source reference with file, line, column and reason (0.4985ms)
+✔ loader rejects invalid enum with file, line, column and reason (0.6135ms)
+✔ loader rejects unknown era without note with file, line, column and reason (0.534875ms)
+✔ loader rejects unrecorded check without note with file, line, column and reason (0.549042ms)
+✔ loader rejects malformed source URL with file, line, column and reason (1.419708ms)
+✔ loader rejects javascript source URL with file, line, column and reason (0.696542ms)
+✔ loader rejects variant outside poem with file, line, column and reason (0.77125ms)
+✔ loader rejects mismatched number with file, line, column and reason (0.86425ms)
+✔ loader rejects bare paragraph with file, line, column and reason (1.8775ms)
+✔ loader rejects wrong heading order with file, line, column and reason (1.926791ms)
+✔ loader rejects unknown frontmatter field with file, line, column and reason (0.553833ms)
+✔ loader rejects inherited frontmatter key with file, line, column and reason (0.483875ms)
+✔ loader rejects unknown nested field with file, line, column and reason (0.483375ms)
+✔ loader rejects inherited nested field with file, line, column and reason (0.467833ms)
+✔ loader rejects unknown directive with file, line, column and reason (2.597958ms)
+✔ loader rejects inherited directive name with file, line, column and reason (1.866416ms)
+✔ loader rejects unknown directive attribute with file, line, column and reason (1.555833ms)
+✔ loader rejects unclosed directive with file, line, column and reason (1.657667ms)
+✔ loader rejects missing question level with file, line, column and reason (3.010208ms)
+✔ loader rejects one answer with file, line, column and reason (2.24775ms)
+✔ loader rejects missing follow up with file, line, column and reason (2.1185ms)
+✔ loader rejects unknown question key with file, line, column and reason (2.057458ms)
+✔ loader rejects unresolved YAML tag in frontmatter with file, line, column and reason (1.246709ms)
+✔ loader rejects unresolved YAML tag in questions with file, line, column and reason (3.118042ms)
+✔ loader rejects multiline poem item with file, line, column and reason (1.547375ms)
+✔ loader rejects overlong oral sentence with file, line, column and reason (2.448ms)
+✔ loader rejects overlong analysis with file, line, column and reason (2.939666ms)
+✔ loader rejects overlong alphanumeric oral sentence with file, line, column and reason (5.785167ms)
+✔ formal content entry loads two readable members of a three-part group (68.746ms)
+✔ formal content entry rejects wrong group title (62.508584ms)
+✔ formal content entry rejects wrong group total (22.548375ms)
+✔ formal content entry rejects wrong group part (32.725542ms)
+✔ formal content entry rejects wrong work identity (28.422167ms)
+ℹ tests 44
+ℹ suites 0
+ℹ pass 44
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 476.645125
+$ astro build
+17:18:11 [types] Generated 64ms
+17:18:11 [build] output: "static"
+17:18:11 [build] mode: "static"
+17:18:11 [build] directory: /Users/carl/Dev/Carl/CarlChinese/dist/
+17:18:11 [build] Collecting build info...
+17:18:11 [build] ✓ Completed in 109ms.
+17:18:11 [build] Building static entrypoints...
+17:18:11 [vite] ✓ built in 265ms
+17:18:11 [vite] ✓ built in 19ms
+17:18:11 [build] Rearranging server assets...
+
+ generating static routes
+17:18:11   ├─ /tang300/099-春望/index.html (+11ms)
+17:18:11   ├─ /tang300/040-遊子吟/index.html (+7ms)
+17:18:11   ├─ /tang300/098-春望/index.html (+3ms)
+17:18:11   ├─ /tang300/226-靜夜思/index.html (+3ms)
+17:18:11   ├─ /tang300/index.html (+41ms)
+17:18:11   ├─ /index.html (+28ms)
+17:18:11 ✓ Completed in 258ms.
+
+17:18:11 [build] ✓ Completed in 574ms.
+17:18:11 [build] 6 page(s) built in 690ms
+17:18:11 [build] Complete!
+$ pnpm run build:group-fixture && playwright test --config playwright.group.config.mjs
+$ CARLCHINESE_GROUP_FIXTURE=1 astro build
+17:18:12 [types] Generated 29ms
+17:18:12 [build] output: "static"
+17:18:12 [build] mode: "static"
+17:18:12 [build] directory: /Users/carl/Dev/Carl/CarlChinese/dist-group-fixture/
+17:18:12 [build] Collecting build info...
+17:18:12 [build] ✓ Completed in 60ms.
+17:18:12 [build] Building static entrypoints...
+17:18:13 [vite] ✓ built in 167ms
+17:18:13 [vite] ✓ built in 17ms
+17:18:13 [build] Rearranging server assets...
+
+ generating static routes
+17:18:13   ├─ /tang300/099-春望/index.html (+9ms)
+17:18:13   ├─ /tang300/198-遣悲懷-其一/index.html (+5ms)
+17:18:13   ├─ /tang300/199-遣悲懷-其二/index.html (+2ms)
+17:18:13   ├─ /tang300/index.html (+22ms)
+17:18:13   ├─ /index.html (+25ms)
+17:18:13 ✓ Completed in 168ms.
+
+17:18:13 [build] ✓ Completed in 380ms.
+17:18:13 [build] 5 page(s) built in 445ms
+17:18:13 [build] Complete!
+[WebServer] (node:9146) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:9185) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/group-browser/group.spec.mjs:8:1 › group catalogue and pages expose two readable members while keeping the total at three on desktop (522ms)
+  ✓  2 tests/group-browser/group.spec.mjs:8:1 › group catalogue and pages expose two readable members while keeping the total at three on mobile (518ms)
+
+  2 passed (2.6s)
+$ playwright test
+[WebServer] (node:9269) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 30 tests using 5 workers
+
+(node:9301) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9303) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9304) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9302) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9305) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   3 tests/browser/home-preview.spec.mjs:3:1 › sample preview works with keyboard and preserves real reading links (1.0s)
+  ✓   1 tests/browser/catalog.spec.mjs:3:1 › home leads to the complete series catalogue and only three readable works (1.4s)
+  ✓   2 tests/browser/group-isolation.spec.mjs:3:1 › production output contains only the three authored works and their navigation (1.8s)
+  ✓   6 tests/browser/home-preview.spec.mjs:15:1 › without JavaScript all samples and their reading links remain available (1.2s)
+  ✓   8 tests/browser/legacy-url.spec.mjs:5:1 › the former 春望 URL reaches the corrected base-edition URL without JavaScript (764ms)
+  ✓   5 tests/browser/family-reading.spec.mjs:13:3 › 遊子吟 offers the complete family reading script on desktop (2.8s)
+  ✓   7 tests/browser/catalog.spec.mjs:19:1 › readable works navigate in base-edition order with catalogue return and endpoints (2.4s)
+  ✓   9 tests/browser/home-preview.spec.mjs:27:1 › sample fragments restore on direct entry and browser history (1.7s)
+  ✓   4 tests/browser/analysis.spec.mjs:14:3 › 遊子吟 shows every analysis paragraph and its evidence on desktop (3.6s)
+  ✓  12 tests/browser/catalog.spec.mjs:40:1 › mobile catalogue keeps all entries readable and the available work links usable (761ms)
+  ✓  13 tests/browser/original-text.spec.mjs:10:3 › 遊子吟 opens at its stable URL with complete original text (695ms)
+  ✓  10 tests/browser/original-notes.spec.mjs:67:3 › 040-遊子吟 renders its original-text annotations with direct sources on desktop (2.3s)
+  ✓  15 tests/browser/original-text.spec.mjs:10:3 › 春望 opens at its stable URL with complete original text (637ms)
+  ✓  11 tests/browser/family-reading.spec.mjs:13:3 › 遊子吟 offers the complete family reading script on mobile (2.6s)
+  ✓  17 tests/browser/original-text.spec.mjs:10:3 › 靜夜思 opens at its stable URL with complete original text (594ms)
+  ✓  16 tests/browser/original-notes.spec.mjs:67:3 › 040-遊子吟 renders its original-text annotations with direct sources on mobile (1.8s)
+  ✓  14 tests/browser/analysis.spec.mjs:14:3 › 遊子吟 shows every analysis paragraph and its evidence on mobile (2.9s)
+  ✓  18 tests/browser/family-reading.spec.mjs:13:3 › 春望 offers the complete family reading script on desktop (1.9s)
+  ✓  19 tests/browser/original-notes.spec.mjs:67:3 › 098-春望 renders its original-text annotations with direct sources on desktop (1.2s)
+  ✓  20 tests/browser/analysis.spec.mjs:14:3 › 春望 shows every analysis paragraph and its evidence on desktop (2.0s)
+  ✓  22 tests/browser/original-notes.spec.mjs:67:3 › 098-春望 renders its original-text annotations with direct sources on mobile (2.4s)
+  ✓  21 tests/browser/family-reading.spec.mjs:13:3 › 春望 offers the complete family reading script on mobile (3.3s)
+  ✓  23 tests/browser/analysis.spec.mjs:14:3 › 春望 shows every analysis paragraph and its evidence on mobile (3.5s)
+  ✓  24 tests/browser/original-notes.spec.mjs:67:3 › 226-靜夜思 renders its original-text annotations with direct sources on desktop (3.9s)
+  ✓  25 tests/browser/family-reading.spec.mjs:13:3 › 靜夜思 offers the complete family reading script on desktop (3.7s)
+  ✓  26 tests/browser/analysis.spec.mjs:14:3 › 靜夜思 shows every analysis paragraph and its evidence on desktop (3.2s)
+  ✓  27 tests/browser/original-notes.spec.mjs:67:3 › 226-靜夜思 renders its original-text annotations with direct sources on mobile (1.9s)
+  ✓  28 tests/browser/family-reading.spec.mjs:13:3 › 靜夜思 offers the complete family reading script on mobile (2.1s)
+  ✓  30 tests/browser/original-notes.spec.mjs:102:1 › unresolved source details and URL availability stay explicit (476ms)
+  ✓  29 tests/browser/analysis.spec.mjs:14:3 › 靜夜思 shows every analysis paragraph and its evidence on mobile (1.9s)
+
+  30 passed (19.8s)

@@ -1,0 +1,7 @@
+$ astro check
+17:02:47 [types] Generated 21ms
+17:02:47 [check] Getting diagnostics for Astro files in /Users/carl/Dev/Carl/CarlChinese...
+Result (13 files):
+- 0 errors
+- 0 warnings
+- 0 hints

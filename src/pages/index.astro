@@ -1,37 +1,144 @@
 ---
+import '../styles/site.css';
+import PoemIllustration from '../components/PoemIllustration.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import { loadSiteContent } from '../content/site-content.mjs';
+const { works } = await loadSiteContent();
 ---
 <!doctype html>
 <html lang="zh-Hant">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CarlChinese｜一起讀懂中文</title>
-    <style>
-      :root { color: #241f1a; background: #f7f5f0; font-family: ui-serif, "Noto Serif TC", serif; }
-      * { box-sizing: border-box; }
-      body { max-width: 56rem; margin: 0 auto; padding: 3rem 1.25rem 6rem; line-height: 1.8; }
-      header { border-bottom: 1px solid #d9d1c6; padding-bottom: 2rem; margin-bottom: 2rem; }
-      h1 { font-size: clamp(2.5rem, 7vw, 4rem); line-height: 1.2; margin: .5rem 0; }
-      h2 { font-size: 1.6rem; margin: 0; }
-      .areas { display: grid; gap: 1rem; }
-      .areas section { border: 1px solid #d9d1c6; padding: 1.4rem; }
-      .areas p { margin: .4rem 0 0; }
-      a { color: #7c351f; text-underline-offset: .2em; }
-      @media (min-width: 42rem) { .areas { grid-template-columns: repeat(3, 1fr); } }
-    </style>
-  </head>
-  <body>
-    <main>
-      <header>
-        <p>CarlChinese</p>
-        <h1>一起讀懂中文</h1>
-        <p>寫給臺灣讀者：從日常字詞、古典詩文到臺灣文學，慢慢讀，仔細想，也能與孩子一起討論。</p>
-      </header>
-      <div class="areas">
-        <section aria-labelledby="daily"><h2 id="daily">生活國語</h2><p>從日常的字音、字形與用詞疑問出發，理解語言的由來。詞條內容仍在準備中。</p></section>
-        <section aria-labelledby="classics"><h2 id="classics">古典詩文</h2><p>讓成人重新讀懂作品，也讓家長有材料陪孩子共讀。先從《唐詩三百首》開始。</p><p><a href="/tang300/">閱讀《唐詩三百首》目錄</a></p></section>
-        <section aria-labelledby="taiwan"><h2 id="taiwan">臺灣文學</h2><p>從已進入公有領域的作品認識臺灣文學；系列與作品仍在準備中。</p></section>
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="寫給臺灣讀者的中文閱讀網站，從唐詩原文、深入賞析到親子共學，一起慢慢讀懂中文。" />
+  <title>讀中文｜一起讀懂中文</title>
+</head>
+<body>
+  <SiteHeader />
+  <main id="main">
+    <section class="cover" aria-labelledby="welcome">
+      <h1 id="welcome"><img src="/art/calligraphy-ink.webp" width="1536" height="1024" alt="一起讀懂中文" fetchpriority="high" /></h1>
+      <div class="cover-copy">
+        <p>從一首唐詩開始，慢慢讀，仔細想，<br />也和孩子一起說說心裡的話。</p>
+        <a class="button" href="/tang300/">閱讀《唐詩三百首》目錄</a>
       </div>
-    </main>
-  </body>
+    </section>
+    <section class="classics" id="areas" aria-labelledby="classics">
+      <div class="section-heading"><h2 id="classics">古典詩文</h2><p>三篇樣章，從原文讀到<br />深入賞析與親子共學。</p></div>
+      <div class="book">
+        <div class="book-index">
+          <p>先讀哪一首？</p>
+          {works.map((work, i) => <a class="poem-choice" href={`#sample-${i}`} data-preview={i}><span>{work.frontmatter.title}<small>{work.frontmatter.author}</small></span></a>)}
+
+        </div>
+        <div class="leaves">
+          {works.map((work, i) => <article class="leaf" data-work-id={work.id} id={`sample-${i}`} data-leaf={i}>
+
+            {work.illustration && <PoemIllustration illustration={work.illustration} />}
+            <div class="poem-slip"><h3>{work.frontmatter.title}</h3><p class="sample-lines">{work.frontmatter.text.slice(0,4).map(line => <span>{line}</span>)}</p><a class="read-link" href={`/tang300/${work.slug}/`}>讀〈{work.frontmatter.title}〉</a></div>
+          </article>)}
+        </div>
+      </div>
+      <p class="catalog-note">《唐詩三百首》八卷・三百一十三首篇目，目前開放三篇完整閱讀。</p>
+    </section>
+    <section class="other-areas" aria-label="其他閱讀專區">
+      <div class="area-feature"><img class="area-art" src="/art/writing-desk-ink.webp" alt="毛筆、硯臺與翻開的書冊，以淡墨描繪的書案" width="1536" height="1024" loading="lazy" decoding="async" /><h2>生活國語</h2><p>從日常的字音、字形與用詞疑問出發，理解語言的由來。詞條內容仍在準備中。</p></div>
+      <div class="area-feature"><img class="area-art" src="/art/taiwan-ink.webp" alt="榕樹與瓦屋依傍山巒的水墨想像風景" width="1536" height="1024" loading="lazy" decoding="async" /><h2>臺灣文學</h2><p>從已進入公有領域的作品認識臺灣文學，讀土地，也讀生活。系列與作品仍在準備中。</p></div>
+    </section>
+  </main>
+  <footer class="site-footer"><p class="closing">把一句詩，讀進生活。</p><p>讀中文 · 寫給臺灣讀者</p>
+    <p class="credits">書法與水墨視覺為人工智慧生成，非古籍原件或詩作本事圖像。</p>
+  </footer>
+</body>
 </html>
+<script>
+  const choices = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-preview]'));
+  const leaves = Array.from(document.querySelectorAll<HTMLElement>('[data-leaf]'));
+  function preview(index: number) {
+    choices.forEach((choice, i) => { choice.setAttribute('aria-expanded', String(i === index)); });
+    leaves.forEach((leaf, i) => { leaf.hidden = i !== index; });
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) leaves[index]?.animate([{ opacity: .4, transform: 'translateX(12px)' }, { opacity: 1, transform: 'translateX(0)' }], { duration: 240, easing: 'ease-out' });
+  }
+  choices.forEach((choice, index) => {
+    choice.setAttribute('aria-controls', `sample-${index}`);
+    choice.addEventListener('click', () => { preview(index); });
+  });
+  function previewFromLocation() {
+    const index = leaves.findIndex(leaf => `#${leaf.id}` === window.location.hash);
+    preview(index < 0 ? 0 : index);
+  }
+  window.addEventListener('hashchange', previewFromLocation);
+  previewFromLocation();
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!reduced.matches) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add(entry.target instanceof HTMLImageElement ? 'picture-enter' : 'text-enter');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: .15 });
+    document.querySelectorAll('.cover h1 img, .area-art, .cover-copy p, .cover-copy .button, .section-heading h2, .section-heading p, .poem-choice, .other-areas h2, .other-areas p, .closing, .poem-slip h3, .sample-lines, .read-link, .catalog-note').forEach(element => observer.observe(element));
+  }
+</script>
+<style>
+  main { width: 100%; }
+  .cover { position: relative; isolation: isolate; }
+  h1 { margin: 0; line-height: 0; }
+  h1 img { width: 100%; height: auto; display: block; mix-blend-mode: multiply; mask-image: linear-gradient(to bottom, #000 88%, transparent); }
+  .cover-copy { position: absolute; left: 8%; bottom: 14%; max-width: 40%; }
+  .cover-copy p { font-size: 18px; margin: 0 0 24px; }
+  .classics, .other-areas { margin: clamp(80px, 9vw, 180px) auto 0; width: 100%; padding-inline: 7vw; }
+  .section-heading { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 56px; }
+  h2 { font-family: var(--brush); font-size: clamp(42px, 6vw, 100px); letter-spacing: .08em; margin: 0; }
+  .section-heading p { margin: 0; }
+  .book { display: grid; grid-template-columns: minmax(160px, 22%) minmax(0, 1fr); gap: 4vw; }
+  .book-index { padding: 32px 24px 32px 0; }
+  .book-index > p { margin: 0 0 24px; }
+  .poem-choice { display: block; color: var(--muted); padding: 14px 0; text-decoration: none; transition: transform 180ms ease; }
+  .poem-choice > span { font-family: var(--brush); font-size: clamp(32px, 3vw, 48px); }
+  .poem-choice small { font-family: var(--serif); font-size: 16px; margin-left: 20px; }
+  .poem-choice:hover { transform: translateX(4px); }
+  .poem-choice[aria-expanded="true"] { color: var(--accent); }
+  .catalog-note { font-size: 16px; margin-top: 32px !important; }
+  .leaves { display: grid; }
+  .leaf { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(200px, 1fr); align-items: center; gap: 32px; padding: 32px 0; scroll-margin-top: 24px; }
+  .leaf[hidden] { display: none; }
+  .poem-slip { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
+  h3 { font: clamp(36px, 4vw, 64px)/1.4 var(--brush); margin: 0 0 32px; }
+  .sample-lines { margin: 0 0 32px; font-size: clamp(24px, 2vw, 32px); line-height: 2.2; writing-mode: vertical-rl; }
+  .sample-lines span { display: block; letter-spacing: .12em; }
+  .read-link { display: inline-flex; min-height: 44px; align-items: center; }
+  .other-areas { display: grid; grid-template-columns: 1fr 1fr; gap: 10vw; padding-block: 64px;  }
+  .area-feature { min-width: 0; }
+  .area-feature:nth-child(2) { padding-top: 7vw; }
+  .area-art { display: block; width: 100%; height: auto; margin-bottom: 32px; mix-blend-mode: multiply; mask-image: radial-gradient(ellipse at center, #000 45%, transparent 73%); }
+  .section-heading h2, .area-feature h2 { position: relative; padding-bottom: .3em; }
+  .section-heading h2::after, .area-feature h2::after { content: ''; position: absolute; left: 0; bottom: 0; width: 2.4em; height: .18em; background: url('/art/brush-stroke.svg') center / 100% 100% no-repeat; opacity: .6; pointer-events: none; }
+  .other-areas p { max-width: 25em; }
+  .credits { margin-top: 32px; font-size: 16px; }
+  :global(.text-enter) { animation: text-arrive 650ms ease-out both; }
+  :global(.picture-enter) { animation: picture-arrive 1100ms ease-out both; }
+  @keyframes text-arrive { from { opacity: .35; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes picture-arrive { from { opacity: .6; } to { opacity: 1; } }
+  @media(max-width: 900px) { .cover-copy { bottom: 6%; } .cover-copy p { font-size: 16px; } .classics { margin-top: 80px; } .leaf { grid-template-columns: 1fr; padding-inline: 0; } }
+  @media(max-width: 700px) { .cover-copy { position: static; max-width: none; margin: 24px 7vw 0; } }
+  @media(max-width: 600px) {
+    .cover-copy { position: static; max-width: none; margin: 20px 28px 0; }
+    .cover-copy p { font-size: 18px; }
+    .classics, .other-areas { width: 100%; padding-inline: 24px; margin-top: 72px; }
+    .section-heading { display: block; margin-bottom: 32px; }
+    .section-heading p { margin-top: 16px; }
+    .book { grid-template-columns: 1fr; gap: 24px; }
+    .book-index { display: flex; flex-wrap: wrap; padding: 0; gap: 8px; }
+    .book-index > p { flex-basis: 100%; margin-bottom: 8px; }
+    .poem-choice { flex: 1; }
+    .poem-choice > span { font-size: 28px; }
+    .poem-choice small { display: block; margin-left: 0; }
+    .book-index .catalog-note { margin-top: 12px !important; }
+    .leaf { padding: 0 0 32px; }
+    .sample-lines { font-size: 24px; }
+    .other-areas { grid-template-columns: 1fr; gap: 64px; padding-block: 0; }
+    .area-feature:nth-child(2) { padding-top: 0; }
+    .area-art { margin-bottom: 16px; }
+  }
+</style>

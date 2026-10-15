@@ -1,0 +1,47 @@
+[
+  {
+    "number": "040",
+    "title": "遊子吟",
+    "alt": "母親低頭縫衣，門外小徑通向遠山，春草生在門邊。",
+    "source": "/Users/carl/.codex/generated_images/01a13ed5-1fa9-7283-8c7d-7934cb0dc22d/exec-70792017-9c14-4f0f-911e-9a8f4498b37f.png",
+    "reason": "以密密縫衣為主體，遠路與春草呼應臨行及寸草意象。",
+    "id": "tang300-040",
+    "path": "public/art/poems/tang300/040-ink.webp",
+    "width": 1536,
+    "height": 1024,
+    "prompt": "Create one landscape 1536x1024 traditional Chinese ink wash illustration for Meng Jiao's poem 遊子吟, no text in image. Poetic imagined scene, not historical reconstruction. A mother in plain unadorned robes, small figure seen from side-back, seated sewing a simple travel garment with a delicate thread; careful natural hands, understated face, tender quiet concentration. Modest interior on left, open doorway and winding path vanishing into pale mist on right. Small spring grasses near threshold, soft daylight suggesting care. No crying, no departing child, no elaborate historical props. Expressive charcoal dry brush, translucent grey ink washes on pale warm ivory rice paper, generous negative space and naturally dissolving outer edges; sophisticated hand-painted literary art, same restrained family as Chinese landscape ink painting. Monochrome only, no lettering, calligraphy, caption, signature, seals, watermark, frame, photographic realism or cartoon.",
+    "tool": "built-in image_gen",
+    "status": "素材完成，待頁面接入",
+    "caption": "意境插圖・人工智慧生成"
+  },
+  {
+    "number": "098",
+    "title": "春望",
+    "alt": "殘垣間春草繁生，花枝上停著小鳥，遠處山河依然。",
+    "source": "/Users/carl/.codex/generated_images/01a13ed5-1fa9-7283-8c7d-7934cb0dc22d/exec-37000f3d-c722-49c1-b7b4-07587b5dd2b7.png",
+    "reason": "以城春草木深和花鳥並置殘垣，含蓄表現離亂，不描繪戰鬥。",
+    "id": "tang300-098",
+    "path": "public/art/poems/tang300/098-ink.webp",
+    "width": 1536,
+    "height": 1024,
+    "prompt": "Create one landscape 1536x1024 traditional Chinese ink wash illustration interpreting Du Fu's 春望. No text. An imagined deserted city garden in spring: broken low stone walls and remnants of simple rooflines on left foreground, vigorous wild grasses between paving stones, one flowering branch and two small birds; broad river and enduring distant mountains dissolve into empty mist on the right. Juxtapose fragile human ruins and continuing spring life. Quiet sorrow and separation, not picturesque celebration. No soldiers, weapons, fire, blood, corpses or disaster spectacle, no famous identifiable buildings or exact historical reconstruction, no human portrait. Refined monochrome charcoal ink, expressive dry-brush marks and translucent grey washes, warm ivory rice paper, generous unpainted negative space, organically feathered outer edges, hand-painted literary editorial art. Landscape composition distinct from a generic towering-mountain wallpaper. No lettering, calligraphy, title, seals, signature, watermark, border, cartoon or photorealism.",
+    "tool": "built-in image_gen",
+    "status": "素材完成，待頁面接入",
+    "caption": "意境插圖・人工智慧生成"
+  },
+  {
+    "number": "226",
+    "title": "靜夜思",
+    "alt": "旅人坐在床沿低頭沉思，窗外明月將一片清光照在床前地面。",
+    "source": "/Users/carl/.codex/generated_images/01a13ed5-1fa9-7283-8c7d-7934cb0dc22d/exec-b94114ed-0af9-4896-96bf-207d4613f29c.png",
+    "reason": "依本頁明月光正文，以床前月光和低頭人物呈現鄉愁，地面沒有實際霜雪。",
+    "id": "tang300-226",
+    "path": "public/art/poems/tang300/226-ink.webp",
+    "width": 1536,
+    "height": 1024,
+    "prompt": "Create one landscape 1536x1024 traditional Chinese ink wash illustration for Li Bai's 靜夜思. Poetic imagined interior, not a historical portrait or reconstruction. A solitary modest traveler in plain robe seated on the edge of a simple low wooden sleeping bed at left, small back-three-quarter silhouette with head gently lowered, hands resting naturally concealed in sleeves. Open unglazed window at upper right reveals a single full moon. Pale moonlight falls across the empty floor before the bed, white paper reserves glowing softly against translucent gray ink shadows. It is moonlight mistaken for frost, NOT actual frost, snow or ice. Very spare interior; no wine cups, books, sword, ornate furniture or dramatic scenery. Stillness, homesickness and intimacy, much open space in center. Expressive dry brush and atmospheric grey ink washes on warm ivory rice paper, soft dissolving perimeter. Restrained monochrome, sophisticated hand-painted Chinese literary art, no full black background. No words, letters, calligraphy, seals, signature, watermark, frame, cartoon or photographic realism.",
+    "tool": "built-in image_gen",
+    "status": "素材完成，待頁面接入",
+    "caption": "意境插圖・人工智慧生成"
+  }
+]

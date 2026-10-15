@@ -1,0 +1,16 @@
+---
+interface Props {
+  illustration: { src: string; alt: string; width: number; height: number };
+  eager?: boolean;
+}
+const { illustration, eager = false } = Astro.props;
+---
+<figure class="poem-illustration" data-poem-illustration>
+  <img src={illustration.src} alt={illustration.alt} width={illustration.width} height={illustration.height} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+  <figcaption>意境插圖・人工智慧生成</figcaption>
+</figure>
+<style>
+  figure { margin: 0; min-width: 0; }
+  img { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
+  figcaption { margin-top: .6rem; color: var(--muted); font-size: 14px; letter-spacing: .04em; text-align: right; }
+</style>

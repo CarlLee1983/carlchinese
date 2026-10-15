@@ -1,0 +1,24 @@
+$ astro build
+17:02:49 [types] Generated 16ms
+17:02:49 [build] output: "static"
+17:02:49 [build] mode: "static"
+17:02:49 [build] directory: /Users/carl/Dev/Carl/CarlChinese/dist/
+17:02:49 [build] Collecting build info...
+17:02:49 [build] ✓ Completed in 35ms.
+17:02:49 [build] Building static entrypoints...
+17:02:49 [vite] ✓ built in 79ms
+17:02:49 [vite] ✓ built in 10ms
+17:02:49 [build] Rearranging server assets...
+
+ generating static routes
+17:02:49   ├─ /tang300/099-春望/index.html (+4ms)
+17:02:49   ├─ /tang300/040-遊子吟/index.html (+3ms)
+17:02:49   ├─ /tang300/098-春望/index.html (+1ms)
+17:02:49   ├─ /tang300/226-靜夜思/index.html (+1ms)
+17:02:49   ├─ /tang300/index.html (+17ms)
+17:02:49   ├─ /index.html (+11ms)
+17:02:49 ✓ Completed in 127ms.
+
+17:02:49 [build] ✓ Completed in 229ms.
+17:02:49 [build] 6 page(s) built in 266ms
+17:02:49 [build] Complete!

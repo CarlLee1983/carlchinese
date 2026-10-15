@@ -1,0 +1,13 @@
+{
+  "tool": "built-in image_gen",
+  "assets": [
+    {
+      "path": "public/art/writing-desk-ink.webp",
+      "prompt": "Use case: stylized-concept. Create a refined traditional Chinese monochrome ink wash illustration for a Traditional Chinese literary reading website, landscape 1536x1024. Subject: a modest scholar's writing desk still life, ceramic brush rest with a single calligraphy brush, ink stone, loosely open blank rice-paper booklet, a small branch in a vase, no people. Expressive dry brush strokes and pooled charcoal ink, delicate wet-on-wet washes, generous unpainted ivory white space. Composition objects primarily in lower middle, edges fade naturally into nearly white paper, no frame. Editorial museum quality, understated and poetic, not cartoon or vector, no glossy 3D. No writing, no text, no letters, no seal, no watermark. Avoid dark background and excessive detail. Intended as atmospheric illustration above a Chinese section heading; no UI mockup."
+    },
+    {
+      "path": "public/art/taiwan-ink.webp",
+      "prompt": "Use case: stylized-concept. A sophisticated traditional Chinese ink wash landscape illustration for a Taiwanese literature website, landscape 1536x1024. Imagined Taiwanese foothill landscape: a mature spreading banyan tree to the right, low tile roof rural houses nestled at its feet, distant soft layered mountains and a curving empty footpath in the lower left. Poetic quiet atmosphere. Rich organic dry-brush charcoal black marks on branches, translucent grey ink mountain washes, diffused edges disappearing into generous ivory-white unpainted rice paper. The scene lives in the middle and lower two thirds, ample negative space, no rectangular border. Editorial fine-art hand-painted look, delicate and expressive, not vector or cartoon. Entirely monochrome neutral black and gray ink, no text, no lettering, no seals, no people, no watermark, no UI. Atmospheric imagined scene, not a depiction of a specific historical place."
+    }
+  ]
+}

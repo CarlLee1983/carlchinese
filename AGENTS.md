@@ -53,3 +53,9 @@ before applying labels.
 
 This is a single-context repository. Read `docs/agents/domain.md`
 before domain exploration or design changes.
+
+### Poem illustrations
+
+When adding readable poems, changing imagery-relevant poem content, or generating,
+replacing, integrating, or reviewing poem illustrations, read and apply
+[poem-illustration](.agents/skills/poem-illustration/SKILL.md).

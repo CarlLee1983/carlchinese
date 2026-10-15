@@ -1,0 +1,102 @@
+[
+  {
+    "media": "image",
+    "ref": "met:40196",
+    "title": "Gentlemen gazing at a waterfall",
+    "creator": "Unidentified artist",
+    "creatorUrl": null,
+    "date": "13th century",
+    "license": "public domain (CC0)",
+    "licenseCode": "cc0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "creditRequired": false,
+    "page": "https://www.metmuseum.org/art/collection/search/40196",
+    "via": "The Metropolitan Museum of Art",
+    "image": "https://images.metmuseum.org/CRDImages/as/original/DT6276.jpg",
+    "width": 3930,
+    "height": 4000,
+    "bytes": 4480741,
+    "credit": "\"Gentlemen gazing at a waterfall\" by Unidentified artist, 13th century, public domain (CC0), via The Metropolitan Museum of Art",
+    "notes": [
+      "Local display copy resized; original dimensions and byte count below describe the museum download. CSS may crop display."
+    ],
+    "saved": "2026-10-15T08:52:48.774Z",
+    "originalFile": "assets/gentlemen-gazing-at-a-waterfall.jpg",
+    "file": "public/art/waterfall.jpg"
+  },
+  {
+    "media": "image",
+    "ref": "met:51392",
+    "title": "Moonlit terrace",
+    "creator": "Unidentified",
+    "creatorUrl": null,
+    "date": "17th century",
+    "license": "public domain (CC0)",
+    "licenseCode": "cc0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "creditRequired": false,
+    "page": "https://www.metmuseum.org/art/collection/search/51392",
+    "via": "The Metropolitan Museum of Art",
+    "image": "https://images.metmuseum.org/CRDImages/as/original/DP153542.jpg",
+    "width": 4000,
+    "height": 3531,
+    "bytes": 4013523,
+    "credit": "\"Moonlit terrace\" by Unidentified, 17th century, public domain (CC0), via The Metropolitan Museum of Art",
+    "notes": [
+      "Local display copy resized; original dimensions and byte count below describe the museum download. CSS may crop display."
+    ],
+    "saved": "2026-10-15T08:52:50.471Z",
+    "originalFile": "assets/moonlit-terrace.jpg",
+    "file": "public/art/moon.jpg"
+  },
+  {
+    "media": "image",
+    "ref": "met:931206",
+    "title": "River and landscape",
+    "creator": "Huang Yue",
+    "creatorUrl": null,
+    "date": null,
+    "license": "public domain (CC0)",
+    "licenseCode": "cc0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "creditRequired": false,
+    "page": "https://www.metmuseum.org/art/collection/search/931206",
+    "via": "The Metropolitan Museum of Art",
+    "image": "https://images.metmuseum.org/CRDImages/as/original/DP-44460-001.jpg",
+    "width": 4000,
+    "height": 530,
+    "bytes": 500408,
+    "credit": "\"River and landscape\" by Huang Yue, public domain (CC0), via The Metropolitan Museum of Art",
+    "notes": [
+      "Local display copy resized; original dimensions and byte count below describe the museum download. CSS may crop display."
+    ],
+    "saved": "2026-10-15T08:53:45.085Z",
+    "originalFile": "assets/river-and-landscape.jpg",
+    "file": "public/art/river.jpg"
+  },
+  {
+    "media": "image",
+    "ref": "met:904034",
+    "title": "Landscape after Hua Yan",
+    "creator": "Liu Yanchong",
+    "creatorUrl": null,
+    "date": "1843",
+    "license": "public domain (CC0)",
+    "licenseCode": "cc0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "creditRequired": false,
+    "page": "https://www.metmuseum.org/art/collection/search/904034",
+    "via": "The Metropolitan Museum of Art",
+    "image": "https://images.metmuseum.org/CRDImages/as/original/DP-33919-002.jpg",
+    "width": 4000,
+    "height": 1832,
+    "bytes": 2405890,
+    "credit": "\"Landscape after Hua Yan\" by Liu Yanchong, 1843, public domain (CC0), via The Metropolitan Museum of Art",
+    "notes": [
+      "Local display copy resized; original dimensions and byte count below describe the museum download. CSS may crop display."
+    ],
+    "saved": "2026-10-15T08:53:46.561Z",
+    "originalFile": "assets/landscape-after-hua-yan.jpg",
+    "file": "public/art/landscape.jpg"
+  }
+]

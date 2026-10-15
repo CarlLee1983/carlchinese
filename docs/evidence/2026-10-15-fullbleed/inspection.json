@@ -1,0 +1,278 @@
+[
+  {
+    "name": "home",
+    "width": 320,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 320
+  },
+  {
+    "name": "catalog",
+    "width": 320,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 320
+  },
+  {
+    "name": "reading",
+    "width": 320,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 320
+  },
+  {
+    "name": "youzi",
+    "width": 320,
+    "overflow": false,
+    "latin": [
+      "A04158",
+      "A02249",
+      "A04158",
+      "A02249",
+      "A04158",
+      "A02249"
+    ],
+    "mainWidth": 320
+  },
+  {
+    "name": "jingye",
+    "width": 320,
+    "overflow": false,
+    "latin": [
+      "A02375",
+      "A02375",
+      "A02375"
+    ],
+    "mainWidth": 320
+  },
+  {
+    "name": "home",
+    "width": 390,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 390
+  },
+  {
+    "name": "catalog",
+    "width": 390,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 390
+  },
+  {
+    "name": "reading",
+    "width": 390,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 390
+  },
+  {
+    "name": "youzi",
+    "width": 390,
+    "overflow": false,
+    "latin": [
+      "A04158",
+      "A02249",
+      "A04158",
+      "A02249",
+      "A04158",
+      "A02249"
+    ],
+    "mainWidth": 390
+  },
+  {
+    "name": "jingye",
+    "width": 390,
+    "overflow": false,
+    "latin": [
+      "A02375",
+      "A02375",
+      "A02375"
+    ],
+    "mainWidth": 390
+  },
+  {
+    "name": "home",
+    "width": 601,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 601
+  },
+  {
+    "name": "catalog",
+    "width": 601,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 601
+  },
+  {
+    "name": "reading",
+    "width": 601,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 601
+  },
+  {
+    "name": "youzi",
+    "width": 601,
+    "overflow": false,
+    "latin": [
+      "A04158",
+      "A02249",
+      "A04158",
+      "A02249",
+      "A04158",
+      "A02249"
+    ],
+    "mainWidth": 601
+  },
+  {
+    "name": "jingye",
+    "width": 601,
+    "overflow": false,
+    "latin": [
+      "A02375",
+      "A02375",
+      "A02375"
+    ],
+    "mainWidth": 601
+  },
+  {
+    "name": "home",
+    "width": 768,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 768
+  },
+  {
+    "name": "catalog",
+    "width": 768,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 768
+  },
+  {
+    "name": "reading",
+    "width": 768,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 768
+  },
+  {
+    "name": "youzi",
+    "width": 768,
+    "overflow": false,
+    "latin": [
+      "A04158",
+      "A02249",
+      "A04158",
+      "A02249",
+      "A04158",
+      "A02249"
+    ],
+    "mainWidth": 768
+  },
+  {
+    "name": "jingye",
+    "width": 768,
+    "overflow": false,
+    "latin": [
+      "A02375",
+      "A02375",
+      "A02375"
+    ],
+    "mainWidth": 768
+  },
+  {
+    "name": "home",
+    "width": 1920,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 1920
+  },
+  {
+    "name": "catalog",
+    "width": 1920,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 1920
+  },
+  {
+    "name": "reading",
+    "width": 1920,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 1920
+  },
+  {
+    "name": "youzi",
+    "width": 1920,
+    "overflow": false,
+    "latin": [
+      "A04158",
+      "A02249",
+      "A04158",
+      "A02249",
+      "A04158",
+      "A02249"
+    ],
+    "mainWidth": 1920
+  },
+  {
+    "name": "jingye",
+    "width": 1920,
+    "overflow": false,
+    "latin": [
+      "A02375",
+      "A02375",
+      "A02375"
+    ],
+    "mainWidth": 1920
+  },
+  {
+    "name": "home",
+    "width": 2560,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 2560
+  },
+  {
+    "name": "catalog",
+    "width": 2560,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 2560
+  },
+  {
+    "name": "reading",
+    "width": 2560,
+    "overflow": false,
+    "latin": null,
+    "mainWidth": 2560
+  },
+  {
+    "name": "youzi",
+    "width": 2560,
+    "overflow": false,
+    "latin": [
+      "A04158",
+      "A02249",
+      "A04158",
+      "A02249",
+      "A04158",
+      "A02249"
+    ],
+    "mainWidth": 2560
+  },
+  {
+    "name": "jingye",
+    "width": 2560,
+    "overflow": false,
+    "latin": [
+      "A02375",
+      "A02375",
+      "A02375"
+    ],
+    "mainWidth": 2560
+  }
+]

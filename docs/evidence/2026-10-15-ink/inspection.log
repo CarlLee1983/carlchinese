@@ -1,0 +1,38 @@
+TASTESKILL · INSPECT   http://127.0.0.1:4322
+
+MEASURED (first viewport listed)
+  hero headline   "CarlChinese"  1 words · 1 line(s) · 24px (1.7vw) · Songti TC 600 · tracking 0em · leading 1.6
+  @768px          1 line(s) · 38.4px
+  @390px          1 line(s) · 36px
+  typefaces       Songti TC 83%, Kaiti TC 11%, system-ui 6%
+  sizes in use    16 / 18 / 24 / 28 / 32 / 36 / 56 / 64 px
+  colour          page #f7f7f2 · button #f7f7f2
+  page            2.9 screens · 35 words · 1 images · hero media 91% img
+  headings        9 · longest 1 line(s) · median 1 words
+
+FAIL — fix every one of these
+  [eyebrow] @1440px (+768, 390)  2 eyebrow/kicker label(s) above headings: "孟郊" above "春望杜甫"; "杜甫" above "靜夜思李白"
+      → Delete them. If the label carried real information, fold it into the headline or the supporting sentence.
+  [few-pictures] @1440px  Only 2 picture(s) on the page (2 photographs, footage or raster images, 0 interface fragments). Drawings in SVG do not count.
+      → Find real pictures of the subject's world with scripts/assets.mjs (photographs, archival images, maps, engravings, footage), download them to assets/ and give them room: a hero picture, one per section that has a subject, a full-width band. At least four, usually six to twelve.
+
+WARN — fix, or be able to defend
+  [mixed-font-headline] @1440px (+768, 390)  3 headline(s) switch typeface or to italic mid-line (the "one italic serif word" move).
+      → Set the whole headline in one face. Emphasis comes from the words.
+  [palette-cream] @1440px (+768, 390)  Yellow-cream background (page background #f7f7f2, button #f7f7f2, text #f7f7f2).
+      → Use the drawn palette. If you want warmth, take a low-chroma stone or bone, not a yellow cream.
+  [font-count] @1440px (+768, 390)  3 typefaces in use (Songti TC, Kaiti TC, system-ui).
+      → Two at most.
+  [no-footage] @1440px  No video anywhere on the page.
+      → Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject.
+
+LOOK AT THE RENDER — open these with your image viewer / Read tool before saying anything about quality:
+  desktop 1440px  .taste-skill/inspect/desktop-fold.jpg
+                  .taste-skill/inspect/desktop-page-01.jpg
+  tablet 768px    .taste-skill/inspect/tablet-fold.jpg
+                  .taste-skill/inspect/tablet-page-01.jpg
+  mobile 390px    .taste-skill/inspect/mobile-fold.jpg
+                  .taste-skill/inspect/mobile-page-01.jpg
+
+report: .taste-skill/inspect/report.json
+RESULT: 2 FAIL, 4 WARN — not done.

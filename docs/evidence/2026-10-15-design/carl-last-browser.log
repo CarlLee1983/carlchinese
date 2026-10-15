@@ -1,0 +1,48 @@
+$ playwright test
+[WebServer] (node:50550) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 30 tests using 5 workers
+
+(node:50563) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:50562) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:50561) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:50564) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:50565) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   2 tests/browser/home-preview.spec.mjs:3:1 › sample preview works with keyboard and preserves real reading links (524ms)
+  ✓   6 tests/browser/home-preview.spec.mjs:15:1 › without JavaScript all samples and their reading links remain available (275ms)
+  ✓   1 tests/browser/group-isolation.spec.mjs:3:1 › production output contains only the three authored works and their navigation (827ms)
+  ✓   8 tests/browser/legacy-url.spec.mjs:5:1 › the former 春望 URL reaches the corrected base-edition URL without JavaScript (202ms)
+  ✓   7 tests/browser/home-preview.spec.mjs:27:1 › sample fragments restore on direct entry and browser history (255ms)
+  ✓   4 tests/browser/analysis.spec.mjs:14:3 › 遊子吟 shows every analysis paragraph and its evidence on desktop (1.1s)
+  ✓   5 tests/browser/family-reading.spec.mjs:13:3 › 遊子吟 offers the complete family reading script on desktop (1.2s)
+  ✓  10 tests/browser/original-text.spec.mjs:10:3 › 遊子吟 opens at its stable URL with complete original text (154ms)
+  ✓  13 tests/browser/original-text.spec.mjs:10:3 › 春望 opens at its stable URL with complete original text (177ms)
+  ✓  14 tests/browser/original-text.spec.mjs:10:3 › 靜夜思 opens at its stable URL with complete original text (214ms)
+  ✓   9 tests/browser/original-notes.spec.mjs:67:3 › 040-遊子吟 renders its original-text annotations with direct sources on desktop (702ms)
+  ✓   3 tests/browser/catalog.spec.mjs:3:1 › home leads to the complete series catalogue and only three readable works (1.8s)
+  ✓  12 tests/browser/family-reading.spec.mjs:13:3 › 遊子吟 offers the complete family reading script on mobile (967ms)
+  ✓  11 tests/browser/analysis.spec.mjs:14:3 › 遊子吟 shows every analysis paragraph and its evidence on mobile (1.1s)
+  ✓  15 tests/browser/original-notes.spec.mjs:67:3 › 040-遊子吟 renders its original-text annotations with direct sources on mobile (673ms)
+  ✓  18 tests/browser/analysis.spec.mjs:14:3 › 春望 shows every analysis paragraph and its evidence on desktop (734ms)
+  ✓  16 tests/browser/catalog.spec.mjs:19:1 › readable works navigate in base-edition order with catalogue return and endpoints (1.2s)
+  ✓  19 tests/browser/original-notes.spec.mjs:67:3 › 098-春望 renders its original-text annotations with direct sources on desktop (652ms)
+  ✓  17 tests/browser/family-reading.spec.mjs:13:3 › 春望 offers the complete family reading script on desktop (1.1s)
+  ✓  21 tests/browser/catalog.spec.mjs:40:1 › mobile catalogue keeps all entries readable and the available work links usable (475ms)
+  ✓  20 tests/browser/analysis.spec.mjs:14:3 › 春望 shows every analysis paragraph and its evidence on mobile (833ms)
+  ✓  22 tests/browser/original-notes.spec.mjs:67:3 › 098-春望 renders its original-text annotations with direct sources on mobile (692ms)
+  ✓  23 tests/browser/family-reading.spec.mjs:13:3 › 春望 offers the complete family reading script on mobile (1.2s)
+  ✓  25 tests/browser/original-notes.spec.mjs:67:3 › 226-靜夜思 renders its original-text annotations with direct sources on desktop (811ms)
+  ✓  24 tests/browser/analysis.spec.mjs:14:3 › 靜夜思 shows every analysis paragraph and its evidence on desktop (1.0s)
+  ✓  27 tests/browser/original-notes.spec.mjs:67:3 › 226-靜夜思 renders its original-text annotations with direct sources on mobile (774ms)
+  ✓  26 tests/browser/family-reading.spec.mjs:13:3 › 靜夜思 offers the complete family reading script on desktop (1.0s)
+  ✓  29 tests/browser/original-notes.spec.mjs:102:1 › unresolved source details and URL availability stay explicit (262ms)
+  ✓  28 tests/browser/analysis.spec.mjs:14:3 › 靜夜思 shows every analysis paragraph and its evidence on mobile (960ms)
+  ✓  30 tests/browser/family-reading.spec.mjs:13:3 › 靜夜思 offers the complete family reading script on mobile (874ms)
+
+  30 passed (7.6s)

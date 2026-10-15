@@ -1,0 +1,4 @@
+interface:
+  display_name: "逐首詩水墨配圖"
+  short_description: "逐首處理中文詩作的水墨意境圖、穩定作品對應、頁面接入與閱讀驗收"
+  default_prompt: "使用 $poem-illustration 檢查本次作品的配圖，完成授權範圍內的素材與頁面驗證。"

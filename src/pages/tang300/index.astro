@@ -1,4 +1,6 @@
 ---
+import '../../styles/site.css';
+import SiteHeader from '../../components/SiteHeader.astro';
 import { loadSiteContent } from '../../content/site-content.mjs';
 
 const { catalog, works } = await loadSiteContent();
@@ -19,27 +21,12 @@ for (const entry of catalog) {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>唐詩三百首｜CarlChinese</title>
-    <style>
-      :root { color: #241f1a; background: #f7f5f0; font-family: ui-serif, "Noto Serif TC", serif; }
-      * { box-sizing: border-box; }
-      body { max-width: 54rem; margin: 0 auto; padding: 2rem 1.25rem 6rem; line-height: 1.7; }
-      a { color: #7c351f; text-underline-offset: .2em; }
-      h1 { font-size: clamp(2.3rem, 7vw, 3.7rem); margin: 1rem 0; }
-      h2 { border-bottom: 1px solid #d9d1c6; margin: 2.5rem 0 0; padding-bottom: .4rem; font-size: 1.3rem; }
-      h3 { font-size: 1.1rem; margin: 1.5rem 0 .3rem; }
-      .intro { max-width: 45rem; }
-      ol { list-style: none; margin: 0; padding: 0; }
-      li { display: grid; grid-template-columns: 3.5rem 1fr; gap: .5rem; padding: .35rem 0; border-bottom: 1px solid #ebe5dc; }
-      .number { color: #665c50; font-variant-numeric: tabular-nums; }
-      .author { color: #665c50; margin-left: .5rem; }
-      .unreadable { color: #554f48; }
-      .badge { display: inline-block; margin-left: .6rem; padding: 0 .35rem; border: 1px solid #a4573f; color: #773b2b; font-size: .8rem; }
-      @media (max-width: 35rem) { li { grid-template-columns: 2.8rem 1fr; } .author { display: block; margin-left: 0; } }
-    </style>
+    <title>唐詩三百首｜讀中文</title>
+
   </head>
   <body>
-    <main>
+    <SiteHeader />
+    <main id="main" class="catalog-page">
       <p><a href="/">首頁</a> ／ 古典詩文</p>
       <h1>唐詩三百首</h1>
       <div class="intro">
@@ -64,5 +51,6 @@ for (const entry of catalog) {
         </section>)}
       </section>)}
     </main>
+    <footer class="site-footer"><p class="closing">慢慢讀，仔細想。</p><p><a href="/">讀中文</a> · 寫給臺灣讀者</p></footer>
   </body>
 </html>
