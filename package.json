@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "check": "astro check",
     "validate:content": "node scripts/validate-content.mjs",
-    "test:content": "node --test tests/content.test.mjs",
+    "test:content": "node --test tests/*.test.mjs",
     "build": "astro build",
     "test:browser": "playwright test",
     "verify": "pnpm run check && pnpm run validate:content && pnpm run test:content && pnpm run build && pnpm run test:browser"

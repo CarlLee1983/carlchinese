@@ -77,3 +77,15 @@ export interface Work {
   sections: Section[];
   position: Position;
 }
+
+export interface CatalogEntry {
+  number: number;
+  volume: number;
+  form: Frontmatter['form'];
+  title: string;
+  author: string;
+  sourceTitle: string;
+  tocPage: string;
+  supplemented: boolean;
+  group?: { title: string; part: number; total: number };
+}

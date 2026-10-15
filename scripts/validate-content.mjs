@@ -1,4 +1,4 @@
-import { loadWorks } from '../src/content/works.mjs';
+import { loadReadingContent } from '../src/content/reading-content.mjs';
 
-const works = await loadWorks();
-console.log(`已驗證 ${works.length} 篇作品`);
+const { catalog, works } = await loadReadingContent();
+console.log(`已驗證 ${catalog.length} 首篇目與 ${works.length} 篇可讀作品`);

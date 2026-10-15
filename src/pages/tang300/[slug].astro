@@ -1,13 +1,13 @@
 ---
-import { loadWorks } from '../../content/works.mjs';
+import { loadReadingContent } from '../../content/reading-content.mjs';
 import SourceRecords from '../../components/SourceRecords.astro';
 
 export async function getStaticPaths() {
-  const works = await loadWorks();
-  return works.map((work) => ({ params: { slug: work.slug }, props: { work } }));
+  const { works } = await loadReadingContent();
+  return works.map((work, index) => ({ params: { slug: work.slug }, props: { work, previous: works[index - 1], next: works[index + 1] } }));
 }
 
-const { work } = Astro.props;
+const { work, previous, next } = Astro.props;
 const { title, author, dynasty, text, source_title, collated_from, readings = [], rhymes = [], variants = [], title_notes = [], text_notes = [], sources } = work.frontmatter;
 ---
 
@@ -34,6 +34,8 @@ const { title, author, dynasty, text, source_title, collated_from, readings = []
       .annotation-list > li:first-child { border-top: 0; }
       .annotation-text { margin: 0; line-height: 1.8; }
       .source-register { border-top: 1px solid #d9d1c6; margin-top: 3rem; }
+      a { color: #7c351f; text-underline-offset: .2em; }
+      .work-nav { display: flex; flex-wrap: wrap; gap: 1rem; border-top: 1px solid #d9d1c6; margin-top: 3rem; padding-top: 1.5rem; }
     </style>
   </head>
   <body>
@@ -75,6 +77,11 @@ const { title, author, dynasty, text, source_title, collated_from, readings = []
         <p>本篇登錄的來源及查證狀態，供各段引用逐筆查閱。</p>
         <SourceRecords refs={Object.keys(sources)} sources={sources} />
       </section>
+      <nav class="work-nav" aria-label="作品導覽">
+        <a href="/tang300/">回系列目錄</a>
+        {previous && <a href={`/tang300/${previous.slug}/`}>上一篇：{String(previous.frontmatter.number).padStart(3, '0')} {previous.frontmatter.title}</a>}
+        {next && <a href={`/tang300/${next.slug}/`}>下一篇：{String(next.frontmatter.number).padStart(3, '0')} {next.frontmatter.title}</a>}
+      </nav>
     </main>
   </body>
 </html>
