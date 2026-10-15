@@ -2,6 +2,7 @@
 import { loadReadingContent } from '../../content/reading-content.mjs';
 import SourceRecords from '../../components/SourceRecords.astro';
 import MarkedParagraph from '../../components/MarkedParagraph.astro';
+import FamilyReading from '../../components/FamilyReading.astro';
 
 export async function getStaticPaths() {
   const { works } = await loadReadingContent();
@@ -11,6 +12,7 @@ export async function getStaticPaths() {
 const { work, previous, next } = Astro.props;
 const { title, author, dynasty, text, source_title, collated_from, readings = [], rhymes = [], variants = [], title_notes = [], text_notes = [], sources } = work.frontmatter;
 const analysis = work.sections.find((section) => section.title === '深入賞析');
+const family = work.sections.find((section) => section.title === '親子共學');
 ---
 
 <!doctype html>
@@ -48,12 +50,19 @@ const analysis = work.sections.find((section) => section.title === '深入賞析
       .analysis-subsection h3 { font-size: 1.15rem; margin-bottom: .8rem; }
       a { color: #7c351f; text-underline-offset: .2em; }
       .work-nav { display: flex; flex-wrap: wrap; gap: 1rem; border-top: 1px solid #d9d1c6; margin-top: 3rem; padding-top: 1.5rem; }
+      .section-nav { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin: -2rem 0 2rem; font: .95rem/1.7 system-ui, sans-serif; }
+      #original, #analysis, #family { scroll-margin-top: 1rem; }
     </style>
   </head>
   <body>
     <main>
       <h1>{title}</h1>
       <p class="byline">{author}・{dynasty}</p>
+      <nav class="section-nav" aria-label="頁內導覽">
+        <a href="#original">原文</a>
+        <a href="#analysis">深入賞析</a>
+        <a href="#family">親子共學</a>
+      </nav>
       <aside class="layer-legend" data-layer-legend aria-label="標示層次圖例">
         <p>段落左側色條表示標示層次：</p>
         <ul>
@@ -63,7 +72,7 @@ const analysis = work.sections.find((section) => section.title === '深入賞析
           <li class="imagination">教學想像</li>
         </ul>
       </aside>
-      <section aria-label="原文">
+      <section id="original" aria-label="原文">
         <div class="poem">
           {text.map((line) => <p data-poem-line>{line}</p>)}
         </div>
@@ -93,13 +102,14 @@ const analysis = work.sections.find((section) => section.title === '深入賞析
           {text_notes.map((item) => <li data-annotation="text-note"><p class="annotation-text">{item.text}</p><SourceRecords refs={item.refs} sources={sources} /></li>)}
         </ul></section>}
       </section>
-      <section aria-label="深入賞析">
+      <section id="analysis" aria-label="深入賞析">
         <h2>深入賞析</h2>
         {analysis?.subsections.map((subsection) => <section class="analysis-subsection" aria-label={subsection.title}>
           <h3>{subsection.title}</h3>
           {subsection.paragraphs.map((paragraph) => 'paragraphs' in paragraph && <MarkedParagraph paragraph={paragraph} sources={sources} />)}
         </section>)}
       </section>
+      {family && <FamilyReading section={family} sources={sources} />}
       <section class="source-register" aria-label="來源登錄">
         <h2>來源登錄</h2>
         <p>本篇登錄的來源及查證狀態，供各段引用逐筆查閱。</p>

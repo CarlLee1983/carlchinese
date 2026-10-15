@@ -1,0 +1,54 @@
+---
+import type { Section, Source } from '../content/work-model';
+import MarkedParagraph from './MarkedParagraph.astro';
+
+interface Props {
+  section: Section;
+  sources: Record<string, Source>;
+}
+
+const { section, sources } = Astro.props;
+---
+
+<section id="family" aria-label="親子共學">
+  <h2>親子共學</h2>
+  {section.subsections.map((subsection) => <section class="family-subsection" aria-label={subsection.title}>
+    <h3>{subsection.title}</h3>
+    {subsection.title === '開場' || subsection.title === '共讀' ? subsection.paragraphs.map((paragraph) => 'paragraphs' in paragraph && <MarkedParagraph paragraph={paragraph} sources={sources} />) : null}
+    {subsection.title === '提問' && <div class="imagination-group">
+      <p class="layer-label" data-layer-label>教學想像</p>
+      <ol class="questions">
+        {subsection.questions.map((question) => <li data-question>
+          <p class="question-level" data-question-level>{question.level}</p>
+          <p class="question-text" data-question-text>{question.question}</p>
+          <ul class="answers">
+            {question.likely_answers.map((reply) => <li data-answer>
+              <p><span class="reply-label">可能回答：</span><span data-answer-text>{reply.answer}</span></p>
+              <p><span class="reply-label" data-follow-up-label>家長怎麼接：</span><span data-follow-up>{reply.follow_up}</span></p>
+            </li>)}
+          </ul>
+        </li>)}
+      </ol>
+    </div>}
+    {subsection.title === '表達活動' && <div class="imagination-group">
+      <p class="layer-label" data-layer-label>教學想像</p>
+      {subsection.paragraphs.map((paragraph) => 'text' in paragraph && <p class="activity-paragraph" data-activity-paragraph>{paragraph.text}</p>)}
+    </div>}
+  </section>)}
+</section>
+
+<style>
+  .family-subsection { margin-top: 2rem; }
+  .family-subsection h3 { font-size: 1.15rem; margin-bottom: .8rem; }
+  .imagination-group { margin: 1.1rem 0; padding: .15rem 0 .2rem 1rem; border-left: .3rem solid var(--layer-imagination); }
+  .layer-label { margin: 0 0 .4rem; font: 700 .9rem/1.5 system-ui, sans-serif; }
+  .questions { padding-left: 1.4rem; }
+  .questions > li { margin: 1.5rem 0; }
+  .question-level { font: 700 .9rem/1.5 system-ui, sans-serif; margin: 0 0 .25rem; }
+  .question-text { margin: 0 0 .7rem; line-height: 1.8; font-weight: 700; }
+  .answers { padding-left: 1.3rem; }
+  .answers li { margin: .8rem 0; }
+  .answers p { margin: .2rem 0; line-height: 1.8; }
+  .reply-label { color: #665c50; }
+  .activity-paragraph { line-height: 1.9; white-space: pre-line; margin: .8rem 0; }
+</style>
