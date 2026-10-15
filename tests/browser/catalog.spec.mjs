@@ -28,6 +28,9 @@ test('readable works navigate in base-edition order with catalogue return and en
   await expect(page.getByRole('heading', { level: 1, name: '靜夜思' })).toBeVisible();
   await expect(page.getByText('底本題名：夜思')).toBeVisible();
   await expect(navigation.getByRole('link', { name: /下一篇/ })).toHaveCount(0);
+  await navigation.getByRole('link', { name: '上一篇：098 春望' }).click();
+  await expect(page.getByRole('heading', { level: 1, name: '春望' })).toBeVisible();
+  await navigation.getByRole('link', { name: '下一篇：226 靜夜思' }).click();
   await navigation.getByRole('link', { name: '回系列目錄' }).click();
   await expect(page.locator('[data-catalog-entry] a')).toHaveCount(3);
   const missing = await page.request.get('/tang300/099-%E6%9C%88%E5%A4%9C/');

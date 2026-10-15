@@ -1,6 +1,6 @@
 # 作品內容 schema
 
-> v1.0，2026-10-15 內容格式定稿，尚非已實作的驗證器。寫作規則見 [content-guide.md](content-guide.md)；驗證器、解析與 Astro content collection 由 `/to-spec` 規劃、`/implement` 實作。交接條件與尚未驗收項目見[閱讀頁交接](reading-page-handoff.md)。
+> v1.0，2026-10-15 內容格式定稿；正式解析與驗證入口已實作於 [`src/content/works.mjs`](../src/content/works.mjs)。寫作規則見 [content-guide.md](content-guide.md)；交接條件與尚未驗收項目見[閱讀頁交接](reading-page-handoff.md)。
 
 ## 檔案與 Frontmatter
 

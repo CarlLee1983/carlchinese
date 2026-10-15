@@ -4,7 +4,9 @@ const first = '/tang300/198-%E9%81%A3%E6%82%B2%E6%87%B7-%E5%85%B6%E4%B8%80/';
 const second = '/tang300/199-%E9%81%A3%E6%82%B2%E6%87%B7-%E5%85%B6%E4%BA%8C/';
 const missing = '/tang300/200-%E9%81%A3%E6%82%B2%E6%87%B7-%E5%85%B6%E4%B8%89/';
 
-test('group catalogue and pages expose two readable members while keeping the total at three', async ({ page }) => {
+for (const [device, viewport] of Object.entries({ desktop: { width: 1280, height: 800 }, mobile: { width: 375, height: 812 } })) {
+test(`group catalogue and pages expose two readable members while keeping the total at three on ${device}`, async ({ page }) => {
+  await page.setViewportSize(viewport);
   await page.goto('/tang300/');
   await expect(page.locator('[data-catalog-entry]')).toHaveCount(313);
   await expect(page.locator('[data-catalog-entry] a')).toHaveCount(2);
@@ -33,3 +35,4 @@ test('group catalogue and pages expose two readable members while keeping the to
   await expect(page).toHaveURL(first);
   expect((await page.request.get(missing)).status()).toBe(404);
 });
+}
