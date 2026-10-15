@@ -1,5 +1,6 @@
 node_modules/
 dist/
+dist-group-fixture/
 .scratch/
 .DS_Store
 .astro/

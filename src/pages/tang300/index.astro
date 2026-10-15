@@ -1,7 +1,7 @@
 ---
-import { loadReadingContent } from '../../content/reading-content.mjs';
+import { loadSiteContent } from '../../content/site-content.mjs';
 
-const { catalog, works } = await loadReadingContent();
+const { catalog, works } = await loadSiteContent();
 const readable = new Map(works.map((work) => [work.frontmatter.number, work]));
 const numerals = ['', '一', '二', '三', '四', '五', '六', '七', '八'];
 const parts = ['', '一', '二', '三', '四', '五'];
@@ -44,7 +44,7 @@ for (const entry of catalog) {
       <h1>唐詩三百首</h1>
       <div class="intro">
         <p>本系列依四藤吟社八卷 313 首本編排。原編目錄稱 310 首；四藤吟社本補入杜甫〈詠懷古跡〉中的三首，成為 313 首。補入的篇目在下方標出。</p>
-        <p>目錄列出全部篇目。目前三篇已有完整閱讀內容，題名可點選；其餘作品仍在準備中。</p>
+        <p>目錄列出全部篇目。目前{works.length}篇已有完整閱讀內容，題名可點選；其餘作品仍在準備中。</p>
       </div>
       {Array.from({ length: 8 }, (_, index) => index + 1).map((volume) => <section aria-labelledby={`volume-${volume}`}>
         <h2 id={`volume-${volume}`}>卷{numerals[volume]}</h2>

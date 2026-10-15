@@ -10,7 +10,9 @@
     "test:content": "node --test tests/*.test.mjs",
     "build": "astro build",
     "test:browser": "playwright test",
-    "verify": "pnpm run check && pnpm run validate:content && pnpm run test:content && pnpm run build && pnpm run test:browser"
+    "verify": "pnpm run check && pnpm run validate:content && pnpm run test:content && pnpm run build && pnpm run test:group-fixture && pnpm run test:browser",
+    "build:group-fixture": "CARLCHINESE_GROUP_FIXTURE=1 astro build",
+    "test:group-fixture": "pnpm run build:group-fixture && playwright test --config playwright.group.config.mjs"
   },
   "dependencies": {
     "astro": "7.3.8",

@@ -1,16 +1,24 @@
 ---
-import { loadReadingContent } from '../../content/reading-content.mjs';
+import { loadSiteContent } from '../../content/site-content.mjs';
 import SourceRecords from '../../components/SourceRecords.astro';
 import MarkedParagraph from '../../components/MarkedParagraph.astro';
 import FamilyReading from '../../components/FamilyReading.astro';
 
 export async function getStaticPaths() {
-  const { works } = await loadReadingContent();
-  return works.map((work, index) => ({ params: { slug: work.slug }, props: { work, previous: works[index - 1], next: works[index + 1] } }));
+  const { catalog, works } = await loadSiteContent();
+  const readable = new Map(works.map((work) => [work.frontmatter.number, work]));
+  return works.map((work, index) => {
+    const group = work.frontmatter.group;
+    const groupMembers = group ? catalog.slice(work.frontmatter.number - group.part, work.frontmatter.number - group.part + group.total)
+      .map((entry, memberIndex) => ({ part: memberIndex + 1, slug: readable.get(entry.number)?.slug })) : [];
+    return { params: { slug: work.slug }, props: { work, previous: works[index - 1], next: works[index + 1], groupMembers } };
+  });
 }
 
-const { work, previous, next } = Astro.props;
-const { title, author, dynasty, text, source_title, collated_from, readings = [], rhymes = [], variants = [], title_notes = [], text_notes = [], sources } = work.frontmatter;
+const { work, previous, next, groupMembers } = Astro.props;
+const { title, author, dynasty, text, source_title, group, collated_from, readings = [], rhymes = [], variants = [], title_notes = [], text_notes = [], sources } = work.frontmatter;
+const parts = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+const partLabel = (part: number) => `其${parts[part] ?? part}`;
 const analysis = work.sections.find((section) => section.title === '深入賞析');
 const family = work.sections.find((section) => section.title === '親子共學');
 ---
@@ -51,13 +59,23 @@ const family = work.sections.find((section) => section.title === '親子共學')
       a { color: #7c351f; text-underline-offset: .2em; }
       .work-nav { display: flex; flex-wrap: wrap; gap: 1rem; border-top: 1px solid #d9d1c6; margin-top: 3rem; padding-top: 1.5rem; }
       .section-nav { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin: -2rem 0 2rem; font: .95rem/1.7 system-ui, sans-serif; }
+      .group-nav { border: 1px solid #d9d1c6; padding: .75rem 1rem; margin: 0 0 2.5rem; }
+      .group-nav p { margin: 0 0 .4rem; }
+      .group-nav ul { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; list-style: none; margin: 0; padding: 0; }
+      .group-nav [aria-current] { font-weight: bold; }
       #original, #analysis, #family { scroll-margin-top: 1rem; }
     </style>
   </head>
   <body>
     <main>
-      <h1>{title}</h1>
+      <h1>{title}{group && `・${partLabel(group.part)}`}</h1>
       <p class="byline">{author}・{dynasty}</p>
+      {group && <nav class="group-nav" aria-label="組詩導覽">
+        <p>{group.title}・共{group.total}首</p>
+        <ul>{groupMembers.map((member) => <li>{member.part === group.part
+          ? <span aria-current="page">{partLabel(member.part)}（本篇）</span>
+          : member.slug ? <a href={`/tang300/${member.slug}/`}>{partLabel(member.part)}</a> : <span>{partLabel(member.part)}（尚未有內容）</span>}</li>)}</ul>
+      </nav>}
       <nav class="section-nav" aria-label="頁內導覽">
         <a href="#original">原文</a>
         <a href="#analysis">深入賞析</a>
