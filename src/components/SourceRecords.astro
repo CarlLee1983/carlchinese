@@ -1,0 +1,41 @@
+---
+import type { Source } from '../content/work-model';
+
+interface Props {
+  refs: string[];
+  sources: Record<string, Source>;
+}
+
+const { refs, sources } = Astro.props;
+const safeUrl = (value?: string) => {
+  if (!value) return undefined;
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' || url.protocol === 'http:' ? url.href : undefined;
+  } catch {
+    return undefined;
+  }
+};
+---
+
+<ul class="source-records" aria-label="來源">
+  {refs.map((id) => {
+    const source = sources[id];
+    const url = safeUrl(source.url);
+    return <li data-source data-source-id={id}>
+      <span data-source-material>{source.source}</span>，<span data-source-locator>{source.locator}</span>
+      <span class="status">出處時代：{source.era}</span>
+      <span class="status">查證程度：{source.checked}</span>
+      {source.note && <span class="note">{source.note}</span>}
+      {url && <a href={url} target="_blank" rel="noopener noreferrer">公開連結</a>}
+    </li>;
+  })}
+</ul>
+
+<style>
+  .source-records { margin: .4rem 0 0; padding-left: 1.3rem; font-size: .89rem; line-height: 1.65; color: #51483f; }
+  .source-records li { margin: .4rem 0; overflow-wrap: anywhere; }
+  .status { display: inline-block; margin-left: .6rem; }
+  .note { display: block; }
+  a { color: #334f65; text-underline-offset: .15em; }
+</style>

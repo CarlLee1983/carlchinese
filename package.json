@@ -1,0 +1,30 @@
+{
+  "name": "carlchinese",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "check": "astro check",
+    "validate:content": "node scripts/validate-content.mjs",
+    "test:content": "node --test tests/*.test.mjs",
+    "build": "astro build",
+    "test:browser": "playwright test",
+    "verify": "pnpm run check && pnpm run validate:content && pnpm run test:content && pnpm run build && pnpm run test:group-fixture && pnpm run test:browser",
+    "build:group-fixture": "CARLCHINESE_GROUP_FIXTURE=1 astro build",
+    "test:group-fixture": "pnpm run build:group-fixture && playwright test --config playwright.group.config.mjs"
+  },
+  "dependencies": {
+    "astro": "7.3.8",
+    "remark-directive": "4.0.0",
+    "remark-parse": "11.0.0",
+    "unified": "11.0.5",
+    "yaml": "2.9.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@playwright/test": "1.64.1",
+    "@types/node": "^24.19.2",
+    "typescript": "5.9.3"
+  }
+}

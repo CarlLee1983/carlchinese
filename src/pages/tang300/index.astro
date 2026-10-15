@@ -1,0 +1,68 @@
+---
+import { loadSiteContent } from '../../content/site-content.mjs';
+
+const { catalog, works } = await loadSiteContent();
+const readable = new Map(works.map((work) => [work.frontmatter.number, work]));
+const numerals = ['', '一', '二', '三', '四', '五', '六', '七', '八'];
+const parts = ['', '一', '二', '三', '四', '五'];
+type CatalogEntry = import('../../content/work-model').CatalogEntry;
+const sections: Array<{ key: string; volume: number; form: string; entries: CatalogEntry[] }> = [];
+for (const entry of catalog) {
+  const key = `${entry.volume}:${entry.form}`;
+  const section = sections.at(-1);
+  if (section?.key === key) section.entries.push(entry);
+  else sections.push({ key, volume: entry.volume, form: entry.form, entries: [entry] });
+}
+---
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>唐詩三百首｜CarlChinese</title>
+    <style>
+      :root { color: #241f1a; background: #f7f5f0; font-family: ui-serif, "Noto Serif TC", serif; }
+      * { box-sizing: border-box; }
+      body { max-width: 54rem; margin: 0 auto; padding: 2rem 1.25rem 6rem; line-height: 1.7; }
+      a { color: #7c351f; text-underline-offset: .2em; }
+      h1 { font-size: clamp(2.3rem, 7vw, 3.7rem); margin: 1rem 0; }
+      h2 { border-bottom: 1px solid #d9d1c6; margin: 2.5rem 0 0; padding-bottom: .4rem; font-size: 1.3rem; }
+      h3 { font-size: 1.1rem; margin: 1.5rem 0 .3rem; }
+      .intro { max-width: 45rem; }
+      ol { list-style: none; margin: 0; padding: 0; }
+      li { display: grid; grid-template-columns: 3.5rem 1fr; gap: .5rem; padding: .35rem 0; border-bottom: 1px solid #ebe5dc; }
+      .number { color: #665c50; font-variant-numeric: tabular-nums; }
+      .author { color: #665c50; margin-left: .5rem; }
+      .unreadable { color: #554f48; }
+      .badge { display: inline-block; margin-left: .6rem; padding: 0 .35rem; border: 1px solid #a4573f; color: #773b2b; font-size: .8rem; }
+      @media (max-width: 35rem) { li { grid-template-columns: 2.8rem 1fr; } .author { display: block; margin-left: 0; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="/">首頁</a> ／ 古典詩文</p>
+      <h1>唐詩三百首</h1>
+      <div class="intro">
+        <p>本系列依四藤吟社八卷 313 首本編排。原編目錄稱 310 首；四藤吟社本補入杜甫〈詠懷古跡〉中的三首，成為 313 首。補入的篇目在下方標出。</p>
+        <p>目錄列出全部篇目。目前{works.length}篇已有完整閱讀內容，題名可點選；其餘作品仍在準備中。</p>
+      </div>
+      {Array.from({ length: 8 }, (_, index) => index + 1).map((volume) => <section aria-labelledby={`volume-${volume}`}>
+        <h2 id={`volume-${volume}`}>卷{numerals[volume]}</h2>
+        {sections.filter((section) => section.volume === volume).map((section) => <section aria-label={section.form}>
+          <h3>{section.form}</h3>
+          <ol>
+            {section.entries.map((entry) => {
+              const work = readable.get(entry.number);
+              const number = String(entry.number).padStart(3, '0');
+              const label = `${entry.title}${entry.group ? `・其${parts[entry.group.part]}` : ''}`;
+              return <li data-catalog-entry={entry.number}>
+                <span class="number">{number}</span>
+                <span>{work ? <a href={`/tang300/${work.slug}/`}>{number} {label}</a> : <span class="unreadable">{label}</span>}<span class="author">{entry.author}</span>{entry.supplemented && <span class="badge">補入</span>}</span>
+              </li>;
+            })}
+          </ol>
+        </section>)}
+      </section>)}
+    </main>
+  </body>
+</html>

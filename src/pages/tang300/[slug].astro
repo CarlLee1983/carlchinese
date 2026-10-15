@@ -1,0 +1,143 @@
+---
+import { loadSiteContent } from '../../content/site-content.mjs';
+import SourceRecords from '../../components/SourceRecords.astro';
+import MarkedParagraph from '../../components/MarkedParagraph.astro';
+import FamilyReading from '../../components/FamilyReading.astro';
+
+export async function getStaticPaths() {
+  const { catalog, works } = await loadSiteContent();
+  const readable = new Map(works.map((work) => [work.frontmatter.number, work]));
+  return works.map((work, index) => {
+    const group = work.frontmatter.group;
+    const groupMembers = group ? catalog.slice(work.frontmatter.number - group.part, work.frontmatter.number - group.part + group.total)
+      .map((entry, memberIndex) => ({ part: memberIndex + 1, slug: readable.get(entry.number)?.slug })) : [];
+    return { params: { slug: work.slug }, props: { work, previous: works[index - 1], next: works[index + 1], groupMembers } };
+  });
+}
+
+const { work, previous, next, groupMembers } = Astro.props;
+const { title, author, dynasty, text, source_title, group, collated_from, readings = [], rhymes = [], variants = [], title_notes = [], text_notes = [], sources } = work.frontmatter;
+const parts = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+const partLabel = (part: number) => `其${parts[part] ?? part}`;
+const analysis = work.sections.find((section) => section.title === '深入賞析');
+const family = work.sections.find((section) => section.title === '親子共學');
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}｜CarlChinese</title>
+    <style>
+      :root { color: #241f1a; background: #f7f5f0; font-family: ui-serif, "Noto Serif TC", serif; --layer-fact: #326782; --layer-reading: #55704b; --layer-opinion: #a45b2d; --layer-imagination: #79578c; }
+      * { box-sizing: border-box; }
+      body { max-width: 42rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; overflow-wrap: anywhere; }
+      h1 { font-size: clamp(2.3rem, 7vw, 3.5rem); margin-bottom: .25rem; }
+      h2 { font-size: 1.35rem; margin: 2.4rem 0 .7rem; }
+      .byline { color: #665c50; margin-bottom: 3rem; }
+      .poem { font-size: clamp(1.35rem, 4vw, 1.7rem); line-height: 2.2; letter-spacing: .08em; }
+      .poem p { margin: 0; }
+      .punctuation, .edition { color: #665c50; }
+      .punctuation { font-size: .95rem; margin: 2rem 0; }
+      .edition { margin: .3rem 0; }
+      .annotation-list { list-style: none; padding: 0; margin: 0; }
+      .annotation-list > li { padding: .7rem 0; border-top: 1px solid #d9d1c6; }
+      .annotation-list > li:first-child { border-top: 0; }
+      .annotation-text { margin: 0; line-height: 1.8; }
+      .source-register { border-top: 1px solid #d9d1c6; margin-top: 3rem; }
+      .layer-legend { margin: 1.5rem 0 2.5rem; padding: .8rem 1rem; border: 1px solid #d9d1c6; font: .9rem/1.6 system-ui, sans-serif; }
+      .layer-legend p { margin: 0 0 .5rem; }
+      .layer-legend ul { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin: 0; padding: 0; }
+      .layer-legend li { padding-left: .55rem; border-left: .3rem solid; }
+      .layer-legend .fact { border-color: var(--layer-fact); }
+      .layer-legend .reading { border-color: var(--layer-reading); }
+      .layer-legend .opinion { border-color: var(--layer-opinion); border-left-style: dashed; }
+      .layer-legend .imagination { border-color: var(--layer-imagination); }
+      .analysis-subsection { margin-top: 2rem; }
+      .analysis-subsection h3 { font-size: 1.15rem; margin-bottom: .8rem; }
+      a { color: #7c351f; text-underline-offset: .2em; }
+      .work-nav { display: flex; flex-wrap: wrap; gap: 1rem; border-top: 1px solid #d9d1c6; margin-top: 3rem; padding-top: 1.5rem; }
+      .section-nav { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin: -2rem 0 2rem; font: .95rem/1.7 system-ui, sans-serif; }
+      .group-nav { border: 1px solid #d9d1c6; padding: .75rem 1rem; margin: 0 0 2.5rem; }
+      .group-nav p { margin: 0 0 .4rem; }
+      .group-nav ul { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; list-style: none; margin: 0; padding: 0; }
+      .group-nav [aria-current] { font-weight: bold; }
+      #original, #analysis, #family { scroll-margin-top: 1rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>{title}{group && `・${partLabel(group.part)}`}</h1>
+      <p class="byline">{author}・{dynasty}</p>
+      {group && <nav class="group-nav" aria-label="組詩導覽">
+        <p>{group.title}・共{group.total}首</p>
+        <ul>{groupMembers.map((member) => <li>{member.part === group.part
+          ? <span aria-current="page">{partLabel(member.part)}（本篇）</span>
+          : member.slug ? <a href={`/tang300/${member.slug}/`}>{partLabel(member.part)}</a> : <span>{partLabel(member.part)}（尚未有內容）</span>}</li>)}</ul>
+      </nav>}
+      <nav class="section-nav" aria-label="頁內導覽">
+        <a href="#original">原文</a>
+        <a href="#analysis">深入賞析</a>
+        <a href="#family">親子共學</a>
+      </nav>
+      <aside class="layer-legend" data-layer-legend aria-label="標示層次圖例">
+        <p>段落左側色條表示標示層次：</p>
+        <ul>
+          <li class="fact">史實</li>
+          <li class="reading">文學解讀・通行說法與白話轉述</li>
+          <li class="opinion">文學解讀・本站觀點</li>
+          <li class="imagination">教學想像</li>
+        </ul>
+      </aside>
+      <section id="original" aria-label="原文">
+        <div class="poem">
+          {text.map((line) => <p data-poem-line>{line}</p>)}
+        </div>
+        <p class="punctuation">標點為本站編輯所加</p>
+        <p class="edition">底本：四藤吟社 313 首本（決定篇目、序號及體裁）</p>
+        {source_title && <p class="edition">底本題名：{source_title}</p>}
+        <section aria-label="校字依據">
+          <h2>正文校字依據</h2>
+          <p>以下為本篇實際互校的文本；底本不等於正文唯一來源。</p>
+          <ul class="annotation-list">
+            {collated_from.map((id) => <li data-annotation="collation"><SourceRecords refs={[id]} sources={sources} /></li>)}
+          </ul>
+        </section>
+        {readings.length > 0 && <section aria-label="讀音"><h2>讀音</h2><ul class="annotation-list">
+          {readings.map((item) => <li data-annotation="reading"><p class="annotation-text">{item.char}｜{item.zhuyin}{item.reason && `｜${item.reason}`}</p><SourceRecords refs={item.refs} sources={sources} /></li>)}
+        </ul></section>}
+        {rhymes.length > 0 && <section aria-label="押韻古讀"><h2>押韻古讀</h2><ul class="annotation-list">
+          {rhymes.map((item) => <li data-annotation="rhyme"><p class="annotation-text">{item.char}｜{item.note}</p><SourceRecords refs={item.refs} sources={sources} /></li>)}
+        </ul></section>}
+        {variants.length > 0 && <section aria-label="異文"><h2>異文</h2><ul class="annotation-list">
+          {variants.map((item) => <li data-annotation="variant"><p class="annotation-text">第 {item.line} 句｜{item.kind}｜{item.reading}（本頁：{text[item.line - 1]}）</p><SourceRecords refs={item.refs} sources={sources} /></li>)}
+        </ul></section>}
+        {title_notes.length > 0 && <section aria-label="題注"><h2>版本題注</h2><ul class="annotation-list">
+          {title_notes.map((item) => <li data-annotation="title-note"><p class="annotation-text">{item.text}</p><SourceRecords refs={item.refs} sources={sources} /></li>)}
+        </ul></section>}
+        {text_notes.length > 0 && <section aria-label="文字註記"><h2>文字註記</h2><ul class="annotation-list">
+          {text_notes.map((item) => <li data-annotation="text-note"><p class="annotation-text">{item.text}</p><SourceRecords refs={item.refs} sources={sources} /></li>)}
+        </ul></section>}
+      </section>
+      <section id="analysis" aria-label="深入賞析">
+        <h2>深入賞析</h2>
+        {analysis?.subsections.map((subsection) => <section class="analysis-subsection" aria-label={subsection.title}>
+          <h3>{subsection.title}</h3>
+          {subsection.paragraphs.map((paragraph) => 'paragraphs' in paragraph && <MarkedParagraph paragraph={paragraph} sources={sources} />)}
+        </section>)}
+      </section>
+      {family && <FamilyReading section={family} sources={sources} />}
+      <section class="source-register" aria-label="來源登錄">
+        <h2>來源登錄</h2>
+        <p>本篇登錄的來源及查證狀態，供各段引用逐筆查閱。</p>
+        <SourceRecords refs={Object.keys(sources)} sources={sources} />
+      </section>
+      <nav class="work-nav" aria-label="作品導覽">
+        <a href="/tang300/">回系列目錄</a>
+        {previous && <a href={`/tang300/${previous.slug}/`}>上一篇：{String(previous.frontmatter.number).padStart(3, '0')} {previous.frontmatter.title}</a>}
+        {next && <a href={`/tang300/${next.slug}/`}>下一篇：{String(next.frontmatter.number).padStart(3, '0')} {next.frontmatter.title}</a>}
+      </nav>
+    </main>
+  </body>
+</html>

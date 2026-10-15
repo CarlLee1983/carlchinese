@@ -1,0 +1,29 @@
+---
+import type { MarkedParagraph, Source } from '../content/work-model';
+import SourceRecords from './SourceRecords.astro';
+
+interface Props {
+  paragraph: MarkedParagraph;
+  sources: Record<string, Source>;
+}
+
+const { paragraph, sources } = Astro.props;
+const label = paragraph.kind === '文學解讀' ? `文學解讀・${paragraph.stance}` : paragraph.kind;
+const layer = paragraph.stance === '本站觀點' ? 'opinion' : paragraph.kind === '文學解讀' ? 'reading' : paragraph.kind === '史實' ? 'fact' : 'imagination';
+---
+
+{paragraph.paragraphs.map((text) => <div class={`marked-paragraph ${layer}`} data-analysis-paragraph>
+  <p class="layer-label" data-layer-label>{label}</p>
+  <p class="marked-text" data-analysis-text>{text}</p>
+  {paragraph.refs.length > 0 && <SourceRecords refs={paragraph.refs} sources={sources} />}
+</div>)}
+
+<style>
+  .marked-paragraph { margin: 1.1rem 0; padding: .15rem 0 .2rem 1rem; border-left: .3rem solid; }
+  .fact { border-color: var(--layer-fact); }
+  .reading { border-color: var(--layer-reading); }
+  .opinion { border-color: var(--layer-opinion); border-left-style: dashed; }
+  .imagination { border-color: var(--layer-imagination); }
+  .layer-label { margin: 0 0 .4rem; font: 700 .9rem/1.5 system-ui, sans-serif; }
+  .marked-text { margin: 0; line-height: 1.9; white-space: pre-line; }
+</style>
