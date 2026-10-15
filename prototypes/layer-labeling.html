@@ -1,0 +1,466 @@
+<!doctype html>
+<!-- PROTOTYPE（用完即丟）：〈標示層次的頁面呈現方式〉。四種標示層次呈現，以 ?variant=A|B|C|D 切換，?w=m 為手機寬度。內容為內嵌的 content/tang300/099-春望.md。 -->
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>標示層次原型</title>
+<style>
+:root{
+  --fact:#2b62a8; --fact-bg:#eaf1fa;
+  --common:#a86a12; --common-bg:#fbf3e4;
+  --ours:#b23a6b; --ours-bg:#fbecf2;
+  --imag:#2c7a4b; --imag-bg:#e9f5ee;
+  --ink:#222; --muted:#6b6b6b; --line:#e3e0da; --paper:#fdfcf9;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.85 "PingFang TC","Noto Sans TC","Heiti TC",sans-serif}
+body.mobile{background:#d9d6d0}
+body.mobile #page{max-width:375px;margin:24px auto 120px;background:var(--paper);box-shadow:0 0 0 1px #bbb,0 8px 30px rgba(0,0,0,.15);border-radius:18px;padding:20px 16px 40px}
+#page{max-width:760px;margin:0 auto;padding:32px 20px 140px}
+h1{font:600 32px/1.3 "Songti TC","Noto Serif TC",serif;margin:0}
+.byline{color:var(--muted);margin:4px 0 20px}
+.poem{font:24px/2.1 "Songti TC","Noto Serif TC",serif;text-align:center;padding:16px 0 8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:12px}
+.poem rt{font-size:11px;color:var(--muted);font-family:sans-serif}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);margin:10px 0 24px}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px;background:var(--c)}
+h2{font-size:24px;margin:40px 0 4px;padding-bottom:6px;border-bottom:2px solid var(--ink)}
+h3{font-size:18px;margin:28px 0 10px;color:#444}
+.k-fact{--c:var(--fact);--bg:var(--fact-bg)}
+.k-common{--c:var(--common);--bg:var(--common-bg)}
+.k-ours{--c:var(--ours);--bg:var(--ours-bg)}
+.k-imag{--c:var(--imag);--bg:var(--imag-bg)}
+.src{font-size:13px;color:var(--muted);line-height:1.6}
+.src a{color:inherit}
+.plain p{margin:0 0 14px}
+
+/* A 邊條色塊 */
+.a-blk{border-left:4px solid var(--c);padding:2px 0 2px 14px;margin:0 0 18px}
+.a-blk.k-ours{border-left-style:dashed}
+.a-lab{font-size:12px;font-weight:700;color:var(--c);letter-spacing:.05em}
+.a-txt{margin:2px 0}
+
+/* B 行內標籤 */
+.b-p{margin:0 0 16px}
+.pill{display:inline-block;font-size:12px;line-height:1;padding:4px 7px 3px;border-radius:999px;color:#fff;background:var(--c);margin-right:7px;vertical-align:2px;font-weight:600}
+.pill.k-ours{background:#fff;color:var(--c);box-shadow:inset 0 0 0 1.5px var(--c)}
+.b-more{font-size:12px;color:var(--c);cursor:pointer;margin-left:4px;border:0;background:none;padding:0;text-decoration:underline dotted}
+.b-src{display:none;margin-top:4px}
+.b-p.open .b-src{display:block}
+
+/* C 分段標題 */
+.c-grp{margin:0 0 22px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.c-head{background:var(--c);color:#fff;font-size:13px;font-weight:600;padding:5px 12px;letter-spacing:.04em}
+.c-head small{font-weight:400;opacity:.85;margin-left:6px}
+.c-body{padding:10px 14px 4px;background:var(--bg)}
+.c-body p{margin:0 0 10px}
+.c-body sup{color:var(--c);font-size:11px;margin-left:1px}
+.c-notes{padding:6px 14px 10px;background:var(--bg);border-top:1px dashed rgba(0,0,0,.12);margin:0;list-style:none}
+.c-notes li{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* D 開關式 */
+.d-bar{position:sticky;top:0;z-index:5;background:var(--paper);padding:8px 0;margin:-8px 0 8px;display:flex;align-items:center;gap:10px;font-size:14px;border-bottom:1px solid var(--line)}
+body.mobile .d-bar{position:static}
+.d-switch{border:1px solid #999;border-radius:999px;padding:3px 12px;background:#fff;cursor:pointer;font:inherit}
+.d-on .d-switch{background:var(--ink);color:#fff;border-color:var(--ink)}
+.d-hint{color:var(--muted);font-size:12px}
+.d-blk{position:relative;margin:0 0 16px;padding:2px 0;border-radius:6px;transition:background .2s,padding .2s;cursor:pointer}
+.d-blk .d-tag,.d-blk .src{display:none}
+.d-on .d-blk,.d-blk.reveal{background:var(--bg);padding:8px 12px}
+.d-on .d-blk .d-tag,.d-blk.reveal .d-tag{display:inline-block;font-size:11px;font-weight:700;color:var(--c);margin-bottom:2px}
+.d-on .d-blk .src,.d-blk.reveal .src{display:block;margin-top:4px}
+
+/* 共用：提問與活動 */
+.q{border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:0 0 12px;background:#fff}
+.q-lv{font-size:12px;color:var(--muted)}
+.q-q{font-weight:600}
+.q ul{margin:4px 0;padding-left:20px;color:#444;font-size:15px}
+.q-f{font-size:15px}
+.q-f::before{content:"追問　";color:var(--muted);font-size:12px}
+
+/* 切換列 */
+#sw{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:99;display:flex;align-items:center;gap:6px;background:#111;color:#fff;border-radius:999px;padding:6px 8px;box-shadow:0 6px 24px rgba(0,0,0,.35);font:13px/1 system-ui,sans-serif;white-space:nowrap}
+#sw button{background:#333;color:#fff;border:0;border-radius:999px;height:30px;min-width:30px;padding:0 10px;cursor:pointer;font:inherit}
+#sw button.on{background:#f5c542;color:#111}
+#sw .lab{padding:0 8px;min-width:150px;text-align:center}
+</style>
+</head>
+<body>
+<div id="page"></div>
+<div id="sw">
+  <button id="prev" aria-label="上一個">‹</button>
+  <span class="lab" id="lab"></span>
+  <button id="next" aria-label="下一個">›</button>
+  <button id="mob">手機寬度</button>
+</div>
+<script type="text/markdown" id="src">---
+title: 春望
+author: 杜甫
+dynasty: 唐
+series: tang300
+number: 99
+volume: 5
+form: 五言律詩
+supplemented: false
+source_text: 四藤吟社 313 首本
+text:
+  - 國破山河在
+  - 城春草木深
+  - 感時花濺淚
+  - 恨別鳥驚心
+  - 烽火連三月
+  - 家書抵萬金
+  - 白頭搔更短
+  - 渾欲不勝簪
+readings:
+  - char: 濺
+    zhuyin: ㄐㄧㄢˋ
+    source: 教育部《國語辭典簡編本》
+  - char: 烽
+    zhuyin: ㄈㄥ
+    source: 教育部《國語辭典簡編本》
+  - char: 搔
+    zhuyin: ㄙㄠ
+    source: 教育部《國語辭典簡編本》
+  - char: 渾
+    zhuyin: ㄏㄨㄣˊ
+    source: 教育部《國語辭典簡編本》
+  - char: 勝
+    zhuyin: ㄕㄥ
+    source: 教育部《國語辭典簡編本》「不勝」ㄅㄨˋ ㄕㄥ；仇兆鰲《杜詩詳註》卷四於「勝」下注「平聲」
+  - char: 簪
+    zhuyin: ㄗㄢ
+    source: 教育部《國語辭典簡編本》
+rhymes:
+  - char: 簪
+    note: 本詩韻腳是深、心、金、簪。簪今讀 ㄗㄢ，和其他三字不押韻；《重編國語辭典修訂本》另收又音 ㄗㄣ，與深、心、金同韻。
+    source: 教育部《重編國語辭典修訂本》「簪（又音）」
+variants:
+  - line: 2
+    reading: 城荒草木深
+    edition: 仇兆鰲《杜詩詳註》卷四，「春」下注「一作荒」
+---
+
+## 深入賞析
+
+### 字詞
+
+:::文學解讀{stance="本站觀點"}
+「國破」的「破」是被攻破。杜甫寫這首詩時人在長安，城已落入叛軍手中，所以「國破」首先是眼前的京城失陷，再延伸到整個國家的殘破。「山河在」的「在」，字面是還在，語氣卻是「只剩下」。
+:::
+
+:::文學解讀{stance="通行說法" by="仇兆鰲《杜詩詳註》卷四"}
+「烽火連三月」的「三月」，舊注有兩種讀法。仇兆鰲引宋人黃鶴的看法，認為指季春三月，也就是戰火一直延燒到這年暮春；他同時記下趙氏的另一說，把它算成從叛亂爆發起連續三個月，並引顧宸的考證，指出那個時間點長安尚未失陷，判定趙說不合史實。
+:::
+
+:::文學解讀{stance="本站觀點"}
+本站採「季春三月」的讀法，但不必把「三」讀死。和下句的「萬金」對照，「連三月」寫的是時間拖得長，「抵萬金」寫的是價值抬得高，兩個數字都在誇張戰亂中的煎熬。
+:::
+
+:::文學解讀{stance="本站觀點"}
+「渾欲不勝簪」：渾，簡直；欲，快要；不勝，禁不起。古代男子成年後把頭髮挽成髻，用簪子固定冠帽。杜甫的頭髮少到連一根簪子都插不住，衰老是寫實，也是愁苦的結果。
+:::
+
+### 背景
+
+:::史實{source="《舊唐書·肅宗紀》" locator="卷十" url="https://zh.wikisource.org/wiki/舊唐書/卷10" hand="一手"}
+天寶十四載（755）十一月，安祿山起兵叛唐；次年六月，哥舒翰兵敗，潼關失守，玄宗出奔往蜀。至德二載（757）九月，官軍收復長安。
+:::
+
+:::史實{source="《新唐書·杜甫傳》" locator="卷二〇一" url="https://zh.wikisource.org/wiki/新唐書/卷201" hand="一手"}
+《新唐書》記載：安祿山之亂時，杜甫避難到三川，家眷安置在鄜州；肅宗即位後，他從鄜州換上粗衣想投奔朝廷，途中落入叛軍手中。至德二年，他逃到鳳翔謁見肅宗，被任命為右拾遺。這部史書成書於北宋，距杜甫過世約三百年。
+:::
+
+:::史實{source="仇兆鰲《杜詩詳註》" locator="卷四〈春望〉〈憶幼子〉題下注" url="https://zh.wikisource.org/wiki/杜詩詳註_(四庫全書本)/卷04" hand="二手"}
+杜甫沒有留下這首詩的寫作日期。清代仇兆鰲引宋人黃鶴的說法，把〈春望〉繫於至德二載三月、杜甫陷在叛軍中的時候；同卷〈憶幼子〉的題下注也說杜甫這年春天在長安。這是注家依詩意與史事推定的年代。
+:::
+
+:::史實{source="杜甫〈述懷〉" locator="《全唐詩》卷二一七" url="https://zh.wikisource.org/wiki/述懷一首" hand="一手"}
+杜甫自己在〈述懷〉裡回顧這段經歷：「去年潼關破，妻子隔絕久。今夏草木長，脫身得西走。」題下注明是「自賊中竄歸鳳翔」後所作。詩中又說：「自寄一封書，今已十月後。」信寄出後十個月，仍沒有家人的回音。
+:::
+
+### 技巧
+
+:::文學解讀{stance="通行說法" by="司馬光《續詩話》"}
+北宋司馬光拿這首詩的前四句說明古人作詩「意在言外」。他的解讀是：說山河還在，等於說除此之外什麼都沒了；說草木長得深，等於說城裡沒有人；花和鳥本是讓人愉快的東西，詩人卻見了落淚、聽了心驚，時局如何便不言可喻。詩人不直說「長安殘破」，讓讀者自己推出來。
+:::
+
+:::文學解讀{stance="通行說法" by="仇兆鰲《杜詩詳註》卷四"}
+仇兆鰲把全詩分成兩半：前四句寫春望所見的景，後四句寫遭亂思家的情。他也引元人趙汸的看法，認為「烽火」句接著「感時」，「家書」句接著「恨別」，前後兩聯一一呼應。
+:::
+
+:::文學解讀{stance="本站觀點"}
+「感時花濺淚，恨別鳥驚心」可以有兩種讀法。一種把花鳥擬人：花也在流淚，鳥也被驚動。另一種以詩人為主語：看到花，詩人淚水濺落；聽到鳥叫，詩人心頭一驚。兩種讀法並不衝突，詩句的好處正在於主語沒有說死，人和景的界線因此模糊了。
+:::
+
+:::文學解讀{stance="本站觀點"}
+這是一首五言律詩。中間兩聯對仗工整：「感時」對「恨別」，「花濺淚」對「鳥驚心」；「烽火」對「家書」，「連三月」對「抵萬金」。工整的形式裝著紛亂的時局，形式越穩，越顯出內容的不安。
+:::
+
+:::文學解讀{stance="本站觀點"}
+全詩的視線一路收窄：從山河、城池，到花鳥，到戰火與家書，最後落在詩人自己頭上稀疏的白髮與一根插不住的簪子。國、家、身三層，從最大的寫到最小的，最小的那根簪子反而最刺眼。
+:::
+
+### 情感
+
+:::文學解讀{stance="本站觀點"}
+這首詩的悲傷有兩個來源：國家殘破，以及與家人斷了音訊。杜甫沒有把兩者分開，也沒有喊口號。他寫的是一個被困在城裡的中年人，在春天看到花開鳥鳴，卻只覺得刺痛。
+:::
+
+:::文學解讀{stance="本站觀點"}
+結尾不寫報國的決心，而寫自己老了、頭髮少了。這種無力感很誠實：一個人在亂世裡能做的事很有限，能感受到的痛卻很具體。讀者不必把它讀成悲壯，讀成一個父親、一個丈夫的焦慮也成立。
+:::
+
+### 比較閱讀
+
+:::文學解讀{stance="通行說法" by="仇兆鰲《杜詩詳註》卷四"}
+「不勝簪」的說法有來歷。仇兆鰲在注中引了南朝鮑照的詩句「白髮零落不勝簪」，杜甫的末句與之相近。
+:::
+
+:::史實{source="杜甫〈憶幼子〉；仇兆鰲《杜詩詳註》題下注" locator="《全唐詩》卷二二四；《杜詩詳註》卷四" url="https://zh.wikisource.org/wiki/全唐詩/卷224" hand="二手"}
+同一年春天，杜甫還寫了〈憶幼子〉：「驥子春猶隔，鶯歌暖正繁。別離驚節換，聰慧與誰論。」仇兆鰲注說，驥子是杜甫幼子宗武的小名。
+:::
+
+:::文學解讀{stance="本站觀點"}
+把兩首詩放在一起讀，〈春望〉的「恨別鳥驚心」就有了具體的臉孔。〈憶幼子〉裡，鶯鳥唱得正熱鬧，提醒他季節又換了，他想的是那個聰明的孩子身邊沒有人可以說話。〈述懷〉裡「反畏消息來」一句，更寫出等家書等到怕收到信的心情，可以和「家書抵萬金」對照著讀。
+:::
+
+## 親子共學
+
+### 開場
+
+:::教學想像
+我們來想像一下。
+你去參加一個很遠的營隊，要住好幾個月。
+營隊裡不能打電話，也不能傳訊息。
+你會最想念誰？
+你會最想知道家裡的什麼事？
+:::
+
+:::教學想像
+再想像一下，如果外面發生了很危險的事。
+你回不了家，也不知道家人好不好。
+這時候收到一封家裡寄來的信，你會有什麼感覺？
+今天這首詩，就是一個回不了家的人寫的。
+:::
+
+### 共讀
+
+:::史實{source="《新唐書·杜甫傳》" locator="卷二〇一" url="https://zh.wikisource.org/wiki/新唐書/卷201" hand="一手"}
+寫這首詩的人叫杜甫，是唐朝的詩人。
+那時候有人帶兵造反，國家發生了大戰亂。
+杜甫的太太和孩子住在另一個地方。
+他一個人出門，半路上被叛軍抓住了。
+:::
+
+:::史實{source="仇兆鰲《杜詩詳註》" locator="卷四〈春望〉題下注" url="https://zh.wikisource.org/wiki/杜詩詳註_(四庫全書本)/卷04" hand="二手"}
+研究杜甫的學者推算，這首詩寫在那年的春天。
+那時候他被困在京城長安，出不去。
+詩的名字叫〈春望〉，就是「在春天往外看」。
+:::
+
+:::文學解讀{stance="通行說法" by="司馬光《續詩話》"}
+我們讀前兩句：「國破山河在，城春草木深。」
+京城被打下來了，只剩下山和河還在。
+春天到了，城裡的草和樹長得又高又密。
+草長那麼高，表示沒有人在走動、在整理。
+很久以前，就有人這樣讀這兩句詩。
+:::
+
+:::文學解讀{stance="本站觀點"}
+接著讀：「感時花濺淚，恨別鳥驚心。」
+「感時」是為這個時局難過。
+「恨別」是為和家人分開而傷心。
+花開了，杜甫看了卻掉眼淚。
+鳥叫了，他聽了反而心裡一驚。
+你也可以讀成：連花都在流淚，連鳥都嚇了一跳。
+:::
+
+:::文學解讀{stance="本站觀點"}
+再讀：「烽火連三月，家書抵萬金。」
+烽火就是打仗時點起來的火。
+戰火一直燒，燒到了這年春天還沒停。
+這時候一封家裡的信，比一萬兩黃金還珍貴。
+:::
+
+:::文學解讀{stance="本站觀點"}
+最後兩句：「白頭搔更短，渾欲不勝簪。」
+杜甫煩惱的時候，會抓抓頭。
+他的頭髮白了，越抓越少。
+古時候的男人要用簪子把頭髮固定好。
+他的頭髮少到，連簪子都快插不住了。
+:::
+
+:::教學想像
+我們來想像杜甫站在城裡的樣子。
+四周很安靜，草長得好高，花開得好漂亮。
+他卻一直抓著自己的白頭髮。
+你覺得他心裡在想誰？
+:::
+
+### 提問
+
+```yaml questions
+- level: 提取
+  question: 杜甫在春天的城裡，看到了什麼？聽到了什麼？
+  likely_answers:
+    - 看到山和河。
+    - 看到草和樹長得很高。
+    - 看到花，聽到鳥叫。
+  follow_up: 你找得好仔細。那這些東西，平常會讓人開心還是難過？
+- level: 推論
+  question: 花和鳥平常讓人開心，為什麼杜甫看到卻想哭？
+  likely_answers:
+    - 因為他想家。
+    - 因為在打仗。
+    - 因為花很漂亮，可是他沒辦法跟家人一起看。
+  follow_up: 你有沒有過，別人都很開心，你卻開心不起來的時候？
+- level: 詮釋整合
+  question: 一封信為什麼會比一萬兩黃金還珍貴？
+  likely_answers:
+    - 因為收到信才知道家人平安。
+    - 因為打仗的時候信很難寄到。
+    - 我覺得黃金比較珍貴。
+  follow_up: 如果是你，你會想在信裡先知道什麼事？
+- level: 評估
+  question: 這首詩沒有直接說「我好想家」。你覺得不直接說好，還是直接說好？
+  likely_answers:
+    - 直接說比較清楚。
+    - 不直接說，讓人自己猜，比較有感覺。
+    - 都可以。
+  follow_up: 你說說看理由。如果讓你改成直接說，你會怎麼寫？
+```
+
+### 表達活動
+
+我們來玩一個造句遊戲。杜甫看到花就想哭，聽到鳥就心驚。請你也用「看到＿＿，就想起＿＿」說一句話。例如：「看到桌上的布丁，就想起出差的爸爸。」
+
+接著，請你想一個很久沒見面的人。如果只能寄一封很短的信，你會寫哪兩句話？先說出來，再一起寫下來。像杜甫那樣，不一定要寫「我想你」，可以寫你看到的一樣東西。
+</script>
+<script>
+const VARIANTS = { A: '邊條色塊', B: '行內標籤', C: '分段標題', D: '開關式（預設不標）' };
+const md = document.getElementById('src').textContent.trim();
+const [, fm, body] = md.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+const meta = k => (fm.match(new RegExp('^' + k + ': (.*)$', 'm')) || [])[1];
+const poemLines = fm.match(/^text:\n((?: {2}- .*\n?)+)/m)[1].trim().split('\n').map(l => l.replace(/^\s*- /, ''));
+const readings = {};
+for (const m of fm.matchAll(/- char: (.)\n\s+zhuyin: (\S+)/g)) readings[m[1]] = m[2];
+
+function parseQ(ls) {
+  const qs = []; let cur, inA = false, m;
+  for (const l of ls) {
+    if ((m = l.match(/^- level: (.*)/))) { cur = { level: m[1], answers: [] }; qs.push(cur); inA = false; }
+    else if ((m = l.match(/^\s+question: (.*)/))) cur.question = m[1];
+    else if (/^\s+likely_answers:/.test(l)) inA = true;
+    else if ((m = l.match(/^\s+follow_up: (.*)/))) { cur.follow = m[1]; inA = false; }
+    else if ((m = l.match(/^\s+- (.*)/)) && inA) cur.answers.push(m[1]);
+  }
+  return qs;
+}
+
+const items = []; const L = body.split('\n');
+for (let i = 0; i < L.length;) {
+  const l = L[i]; let m;
+  if (l.startsWith('## ')) { items.push({ t: 'h2', text: l.slice(3) }); i++; continue; }
+  if (l.startsWith('### ')) { items.push({ t: 'h3', text: l.slice(4) }); i++; continue; }
+  if ((m = l.match(/^:::([^{\s]+)(?:\{(.*)\})?$/))) {
+    const b = { t: 'block', layer: m[1], lines: [] };
+    for (const a of (m[2] || '').matchAll(/(\w+)="([^"]*)"/g)) b[a[1]] = a[2];
+    for (i++; L[i] !== ':::'; i++) b.lines.push(L[i]);
+    i++; items.push(Object.assign(b, tag(b))); continue;
+  }
+  if (l.startsWith('```yaml questions')) {
+    const q = []; for (i++; !L[i].startsWith('```'); i++) q.push(L[i]);
+    i++; items.push({ t: 'questions', qs: parseQ(q) }); continue;
+  }
+  if (l.trim()) items.push({ t: 'p', text: l });
+  i++;
+}
+
+function tag(b) {
+  if (b.layer === '史實') return { k: 'fact', name: '史實', sub: b.hand ? b.hand + '資料' : '', short: '史實',
+    head: '史實', headSub: '有文獻記載',
+    src: `${b.source}${b.locator ? '，' + b.locator : ''}${b.url ? `（<a href="${b.url}" target="_blank">原文</a>）` : ''}` };
+  if (b.layer === '文學解讀' && b.stance === '通行說法') return { k: 'common', name: '文學解讀', sub: '通行說法', short: '通行說法',
+    head: '前人的解讀', headSub: '通行說法', src: b.by };
+  if (b.layer === '文學解讀') return { k: 'ours', name: '文學解讀', sub: '本站觀點', short: '本站觀點',
+    head: '本站的解讀', headSub: '本站觀點', src: '' };
+  return { k: 'imag', name: '教學想像', sub: '', short: '想像', head: '教學想像', headSub: '陪孩子一起想的情境', src: '' };
+}
+const label = b => b.name + (b.sub ? '・' + b.sub : '');
+const txt = b => b.lines.join('<br>');
+
+function header() {
+  const poem = poemLines.map(l => [...l].map(c => readings[c] ? `<ruby>${c}<rt>${readings[c]}</rt></ruby>` : c).join('')).join('<br>');
+  return `<h1>${meta('title')}</h1><div class="byline">${meta('dynasty')}・${meta('author')}・${meta('form')}</div>
+  <div class="poem">${poem}</div>
+  <div class="legend"><span class="k-fact">史實</span><span class="k-common">文學解讀・通行說法</span><span class="k-ours">文學解讀・本站觀點</span><span class="k-imag">教學想像</span></div>`;
+}
+
+function shared(it) {
+  if (it.t === 'h2') return `<h2>${it.text}</h2>`;
+  if (it.t === 'h3') return `<h3>${it.text}</h3>`;
+  if (it.t === 'p') return `<div class="plain"><p>${it.text}</p></div>`;
+  if (it.t === 'questions') return it.qs.map(q => `<div class="q"><div class="q-lv">${q.level}</div><div class="q-q">${q.question}</div>
+    <ul>${q.answers.map(a => `<li>${a}</li>`).join('')}</ul><div class="q-f">${q.follow}</div></div>`).join('');
+}
+
+const render = {
+  A: () => items.map(b => b.t !== 'block' ? shared(b) :
+    `<div class="a-blk k-${b.k}"><div class="a-lab">${label(b)}</div><div class="a-txt">${txt(b)}</div>${b.src ? `<div class="src">出處：${b.src}</div>` : ''}</div>`).join(''),
+
+  B: () => items.map(b => b.t !== 'block' ? shared(b) :
+    `<div class="b-p"><span class="pill k-${b.k}">${b.short}</span>${txt(b)}${b.src ? `<button class="b-more k-${b.k}">出處</button><div class="src b-src">${b.src}</div>` : ''}</div>`).join(''),
+
+  C: () => {
+    const out = []; let grp = null;
+    const flush = () => {
+      if (!grp) return;
+      const notes = grp.blocks.filter(b => b.src);
+      let n = 0;
+      out.push(`<div class="c-grp k-${grp.k}"><div class="c-head">${grp.blocks[0].head}<small>${grp.blocks[0].headSub}</small></div>
+        <div class="c-body">${grp.blocks.map(b => `<p>${txt(b)}${b.src ? `<sup>${++n}</sup>` : ''}</p>`).join('')}</div>
+        ${notes.length ? `<ol class="c-notes">${notes.map((b, i) => `<li>${i + 1}. ${b.src}${b.hand ? '（' + b.hand + '）' : ''}</li>`).join('')}</ol>` : ''}</div>`);
+      grp = null;
+    };
+    for (const b of items) {
+      if (b.t !== 'block') { flush(); out.push(shared(b)); continue; }
+      if (grp && grp.k === b.k) grp.blocks.push(b); else { flush(); grp = { k: b.k, blocks: [b] }; }
+    }
+    flush(); return out.join('');
+  },
+
+  D: () => `<div class="d-bar"><button class="d-switch">顯示標示層次</button><span class="d-hint">關閉時可點任一段看它屬於哪一層</span></div>` +
+    items.map(b => b.t !== 'block' ? shared(b) :
+      `<div class="d-blk k-${b.k}"><span class="d-tag">${label(b)}</span><div>${txt(b)}</div>${b.src ? `<div class="src">出處：${b.src}</div>` : ''}</div>`).join(''),
+};
+
+const keys = Object.keys(VARIANTS);
+const params = new URLSearchParams(location.search);
+function draw() {
+  let v = params.get('variant'); if (!keys.includes(v)) v = 'A';
+  const mobile = params.get('w') === 'm';
+  document.body.className = mobile ? 'mobile' : '';
+  document.getElementById('page').innerHTML = header() + render[v]();
+  document.getElementById('lab').textContent = `${v}（${VARIANTS[v]}）`;
+  document.getElementById('mob').classList.toggle('on', mobile);
+  history.replaceState(null, '', '?' + params.toString());
+}
+const step = d => { const v = params.get('variant'); const i = Math.max(0, keys.indexOf(v)); params.set('variant', keys[(i + d + keys.length) % keys.length]); draw(); };
+document.getElementById('prev').onclick = () => step(-1);
+document.getElementById('next').onclick = () => step(1);
+document.getElementById('mob').onclick = () => { params.get('w') === 'm' ? params.delete('w') : params.set('w', 'm'); draw(); };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea,[contenteditable]')) return;
+  if (e.key === 'ArrowLeft') step(-1);
+  if (e.key === 'ArrowRight') step(1);
+});
+document.getElementById('page').addEventListener('click', e => {
+  const more = e.target.closest('.b-more'); if (more) { more.parentElement.classList.toggle('open'); return; }
+  if (e.target.closest('.d-switch')) { document.body.classList.toggle('d-on'); return; }
+  const d = e.target.closest('.d-blk'); if (d && !e.target.closest('a')) d.classList.toggle('reveal');
+});
+draw();
+</script>
+</body>
+</html>
