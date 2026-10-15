@@ -1,10 +1,12 @@
 # 作品內容 schema 草案
 
-> v0 草稿，待樣章驗證。寫作規則見 [content-guide.md](content-guide.md)。本文件只定義欄位，程式實作（驗證器、Astro content collection）交給 `/to-spec`。
+> v0.1 草稿，待樣章驗證。寫作規則見 [content-guide.md](content-guide.md)。本文件只定義欄位，程式實作（驗證器、Astro content collection）交給 `/to-spec`。
 
 ## 檔案
 
 每件作品一個 Markdown 檔：作品資料放在 frontmatter，正文以 directive 標出區塊與標示層次。
+
+路徑為 `content/<系列 id>/<檔名>.md`，例如 `content/tang300/099-春望.md`；所屬系列由目錄決定，frontmatter 不另記。
 
 ## Frontmatter
 
@@ -13,7 +15,6 @@ title: 靜夜思                          # 通行題名
 source_title: 夜思                     # 底本題名，與 title 不同時才填
 author: 李白
 dynasty: 唐
-series: tang300
 number: 1                              # 底本序號（1–313），系列內的穩定識別
 volume: 1                              # 底本卷次（1–8）
 form: 五言古詩                          # 底本體裁分類，例如五言古詩、五言樂府、七言律詩
@@ -22,27 +23,31 @@ group:                                 # 組詩才填
   part: 1                              # 其一
   total: 2
 supplemented: false                    # 四藤吟社本補入、原選所無時為 true（〈詠懷古跡〉三首）
-source_text: 四藤吟社 313 首本        # 底本
+collated_from:                         # 校字依據：實際互校的文本與卷次，至少一項
+  - 《全唐詩》卷一六五
 text:                                  # 詩句，一行一句
   - 床前明月光
   - …
-readings:                              # 難字讀音，教育部審定音
+readings:                              # 需標讀音的字，教育部審定音
   - char: …
     zhuyin: …
     source: 教育部《重編國語辭典修訂本》
+    reason: …                          # 選填：補標表二十五第 1–8 冊內的字時必填
 rhymes:                                # 押韻古讀註（今音不押韻時才填）
   - char: …
-    note: …
+    note: …                            # 依據不是教育部審訂附註時，寫出韻部與同韻腳字
     source: …
 variants:                              # 異文
-  - line: 1
+  - line: 1                            # 句序，從 1 起算，對應 text
     reading: 床前看月光
-    edition: …
+    source: …                          # 哪本書記載了這個異文
 ```
+
+篇目依據（四藤吟社 313 首本）屬系列層級，不寫在單篇。
 
 檔名與網址為「三位數序號-通行題名」，組詩加「-其N」，例如 `001-感遇-其一.md`；序號與標題不一致時以序號為準。系列目錄依 `number`（即原書卷次與體裁）排序。
 
-原文區塊的欄位不需要標示層次；`readings`、`rhymes`、`variants` 的每一項都視為史實，`source` 或 `edition` 為必填。
+原文區塊的欄位不需要標示層次；`readings`、`rhymes`、`variants` 的每一項都視為史實，`source` 為必填。
 
 ## 正文結構
 
@@ -70,11 +75,11 @@ variants:                              # 異文
 深入賞析的每段，以及親子共學的開場與共讀的每段，都必須包在下面三種 directive 之一。directive 外不得有裸段落。
 
 ```markdown
-:::史實{source="《舊唐書·李白傳》" locator="卷一九〇下" url="https://…" hand="一手"}
+:::史實{source="《舊唐書·李白傳》" locator="卷一九〇下" url="https://…" era="後世古籍"}
 ……
 :::
 
-:::文學解讀{stance="通行說法" by="喻守真《唐詩三百首詳析》"}
+:::文學解讀{stance="通行說法" by="仇兆鰲《杜詩詳註》卷四（引黃鶴）"}
 ……
 :::
 
@@ -89,9 +94,11 @@ variants:                              # 異文
 
 | directive | 屬性 | 規則 |
 | --- | --- | --- |
-| `史實` | `source`（必填）、`locator`（必填）、`url`（選填）、`hand`（必填：`一手`／`二手`） | 不可靠的軼事只陳述「文獻記載了此事」 |
-| `文學解讀` | `stance`（必填：`通行說法`／`本站觀點`）、`by`（`stance=通行說法` 時必填） | 引用注本只取觀點，文字重疊不得達 12 字 |
+| `史實` | `source`（必填）、`locator`（必填）、`url`（選填）、`era`（必填：`同時代`／`後世古籍`／`現代研究`） | 不可靠的軼事只陳述「文獻記載了此事」；繫年只陳述「某注家繫於某時」 |
+| `文學解讀` | `stance`（必填：`通行說法`／`本站觀點`）、`by`（`stance=通行說法` 時必填） | 公版古籍可加「」短句直接引用；現代注本只取觀點，文字重疊不得達 12 字 |
 | `教學想像` | 無 | 文字本身要讓人聽得出是想像 |
+
+`source`、`by` 寫實際讀過的書，轉引對象放括號內；多個獨立出處用「；」分隔，`locator` 與 `era` 依同樣順序以「；」對應；出處時代不同時，優先拆成兩段。
 
 directive 名稱用中文，`remark-directive` 接受非 ASCII 的名稱，前提是名稱裡沒有標點與空白。
 
@@ -105,8 +112,9 @@ directive 名稱用中文，`remark-directive` 接受非 ASCII 的名稱，前�
 ```yaml questions
 - level: 提取          # 提取｜推論｜詮釋整合｜評估
   question: …
-  likely_answers: [ … ]
-  follow_up: …          # 家長怎麼接
+  likely_answers:       # 2–3 組
+    - answer: …         # 孩子可能的回答
+      follow_up: …      # 家長怎麼接
 ```
 ````
 
