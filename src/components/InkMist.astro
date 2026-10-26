@@ -15,10 +15,11 @@ const bandStyle = mist && Object.fromEntries(Object.entries(mist).map(([edge, va
   </span>
 ) : <slot />}
 <style>
-  .frame { position: relative; display: block; isolation: isolate; }
+  /* 不另建堆疊脈絡：圖片的 multiply 要和紙面混合，霧層也不能蓋過疊在圖上的文字 */
+  .frame { position: relative; display: block; }
   /* 霧只留在逐圖標示的霧帶裡，四邊淡出，不留矩形邊界 */
   .mist {
-    position: absolute; z-index: 1; overflow: hidden; pointer-events: none;
+    position: absolute; overflow: hidden; pointer-events: none;
     top: var(--mist-top); bottom: calc(100% - var(--mist-bottom)); left: var(--mist-left); right: calc(100% - var(--mist-right));
     mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 65%, transparent), linear-gradient(to right, transparent, #000 20%, #000 80%, transparent);
     mask-composite: intersect;

@@ -55,3 +55,31 @@ for (const width of [390, 1440]) test(`reduced motion hides the mist and keeps e
     await page.emulateMedia({ reducedMotion: 'no-preference' });
   }
 });
+
+// 首頁裝飾用圖的霧帶由首頁傳入；預期值取自 #13 的原型判定
+const siteArt = [
+  { name: 'hero', scope: '.cover h1', mist: { top: 38, bottom: 82, left: 40, right: 100 } },
+  { name: 'writing desk', scope: '.area-feature:nth-child(1)', mist: { top: 12, bottom: 48, left: 0, right: 100 } },
+  { name: 'Taiwan', scope: '.area-feature:nth-child(2)', mist: { top: 22, bottom: 62, left: 0, right: 80 } },
+];
+
+for (const width of [390, 1440]) test(`home site art shows mist in its marked band at ${width}px`, async ({ page }) => {
+  await page.setViewportSize({ width, height: 900 });
+  await page.goto('/');
+  for (const art of siteArt) await checkMist(page, page.locator(art.scope), art.mist);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
+for (const width of [390, 1440]) test(`reduced motion hides home site art mist without moving the art at ${width}px`, async ({ page }) => {
+  await page.setViewportSize({ width, height: 900 });
+  await page.goto('/');
+  const images = page.locator(siteArt.map(art => `${art.scope} img`).join(', '));
+  const boxes = () => images.evaluateAll(elements => elements.map(element => element.getBoundingClientRect().toJSON()));
+  const moving = await boxes();
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  for (const art of siteArt) {
+    await expect(page.locator(`${art.scope} [data-ink-mist]`)).toHaveCount(1);
+    await expect(page.locator(`${art.scope} [data-ink-mist]`)).toBeHidden();
+  }
+  expect(await boxes()).toEqual(moving);
+});

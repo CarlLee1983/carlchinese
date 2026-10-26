@@ -1,9 +1,16 @@
 ---
 import '../styles/site.css';
+import InkMist from '../components/InkMist.astro';
 import PoemIllustration from '../components/PoemIllustration.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import { loadSiteContent } from '../content/site-content.mjs';
 const { works } = await loadSiteContent();
+// 站方裝飾用圖不屬逐首插圖，霧帶由首頁直接判定
+const siteArtMist = {
+  hero: { top: 38, bottom: 82, left: 40, right: 100 },
+  writingDesk: { top: 12, bottom: 48, left: 0, right: 100 },
+  taiwan: { top: 22, bottom: 62, left: 0, right: 80 },
+};
 ---
 <!doctype html>
 <html lang="zh-Hant">
@@ -16,7 +23,7 @@ const { works } = await loadSiteContent();
   <SiteHeader />
   <main id="main">
     <section class="cover" aria-labelledby="welcome">
-      <h1 id="welcome"><img src="/art/calligraphy-ink.webp" width="1536" height="1024" alt="一起讀懂中文" fetchpriority="high" /></h1>
+      <h1 id="welcome"><InkMist mist={siteArtMist.hero}><img src="/art/calligraphy-ink.webp" width="1536" height="1024" alt="一起讀懂中文" fetchpriority="high" /></InkMist></h1>
       <div class="cover-copy">
         <p>從一首唐詩開始，慢慢讀，仔細想，<br />也和孩子一起說說心裡的話。</p>
         <a class="button" href="/tang300/">閱讀《唐詩三百首》目錄</a>
@@ -41,8 +48,8 @@ const { works } = await loadSiteContent();
       <p class="catalog-note">《唐詩三百首》八卷・三百一十三首篇目，目前開放三篇完整閱讀。</p>
     </section>
     <section class="other-areas" aria-label="其他閱讀專區">
-      <div class="area-feature"><img class="area-art" src="/art/writing-desk-ink.webp" alt="毛筆、硯臺與翻開的書冊，以淡墨描繪的書案" width="1536" height="1024" loading="lazy" decoding="async" /><h2>生活國語</h2><p>從日常的字音、字形與用詞疑問出發，理解語言的由來。詞條內容仍在準備中。</p></div>
-      <div class="area-feature"><img class="area-art" src="/art/taiwan-ink.webp" alt="榕樹與瓦屋依傍山巒的水墨想像風景" width="1536" height="1024" loading="lazy" decoding="async" /><h2>臺灣文學</h2><p>從已進入公有領域的作品認識臺灣文學，讀土地，也讀生活。系列與作品仍在準備中。</p></div>
+      <div class="area-feature"><InkMist mist={siteArtMist.writingDesk}><img class="area-art" src="/art/writing-desk-ink.webp" alt="毛筆、硯臺與翻開的書冊，以淡墨描繪的書案" width="1536" height="1024" loading="lazy" decoding="async" /></InkMist><h2>生活國語</h2><p>從日常的字音、字形與用詞疑問出發，理解語言的由來。詞條內容仍在準備中。</p></div>
+      <div class="area-feature"><InkMist mist={siteArtMist.taiwan}><img class="area-art" src="/art/taiwan-ink.webp" alt="榕樹與瓦屋依傍山巒的水墨想像風景" width="1536" height="1024" loading="lazy" decoding="async" /></InkMist><h2>臺灣文學</h2><p>從已進入公有領域的作品認識臺灣文學，讀土地，也讀生活。系列與作品仍在準備中。</p></div>
     </section>
   </main>
   <footer class="site-footer"><p class="closing">把一句詩，讀進生活。</p><p>讀中文 · 寫給臺灣讀者</p>

@@ -1,6 +1,6 @@
 # 水墨動態驗收證據
 
-2026-10-26，對應 [#11](https://github.com/CarlLee1983/carlchinese/issues/11) 逐首插圖煙霧與 [#12](https://github.com/CarlLee1983/carlchinese/issues/12) 作品頁詩句洇墨入場。在本地 Chromium 實際建置頁面，桌機 1280 × 900、手機 375 × 812。主代理檢視了下列插圖截圖：〈春望〉的河面與遠山有淡霧，人物、殘垣與花鳥都沒有被遮住；〈靜夜思〉是室內場景，畫面上沒有霧。煙霧會持續飄動，截圖只是某一瞬間的畫面。霧層是否存在、位置與版面框是否正確，由 Playwright 逐首比對。
+2026-10-26，對應 [#11](https://github.com/CarlLee1983/carlchinese/issues/11) 逐首插圖煙霧、[#12](https://github.com/CarlLee1983/carlchinese/issues/12) 作品頁詩句洇墨入場，以及 [#13](https://github.com/CarlLee1983/carlchinese/issues/13)–[#15](https://github.com/CarlLee1983/carlchinese/issues/15) 首頁的水墨動態。在本地 Chromium 實際建置頁面，桌機 1280 × 900、手機 375 × 812。主代理檢視了下列插圖截圖：〈春望〉的河面與遠山有淡霧，人物、殘垣與花鳥都沒有被遮住；〈靜夜思〉是室內場景，畫面上沒有霧。煙霧會持續飄動，截圖只是某一瞬間的畫面。霧層是否存在、位置與版面框是否正確，由 Playwright 逐首比對。
 
 [完整 verify 輸出](verify.log)：Astro check 0 錯誤、58 個 Node 測試、2 個組詩瀏覽器測試、42 個正式瀏覽器測試全部通過（含 #12 完成後的狀態）。
 
@@ -23,6 +23,18 @@ cwebp -q 80 -alpha_q 70 mist.png -o public/art/mist.webp
 ```
 
 輸出約 65 KB。重新產生時，要和既有材質並排目視比較，確認濃淡和紋理方向相同。
+
+## 首頁裝飾用圖的煙霧
+
+霧帶寫在首頁，直接傳給共用煙霧元件：主視覺 38–82%／40–100%、書案 12–48%／0–100%、臺灣 22–62%／0–80%（上下／左右）。主代理檢視了 1440 與 390 寬的截圖：三張圖的霧都停在山谷、湖面與遠山，題字、天空留白、引言與按鈕沒有被覆蓋，臺灣圖右側的榕樹也沒有被遮住。
+
+| 圖 | 桌機 | 手機 |
+| --- | --- | --- |
+| 主視覺 | [查看](home-hero-mist-desktop.png) | [查看](home-hero-mist-mobile.png) |
+| 書案 | [查看](home-desk-mist-desktop.png) | [查看](home-desk-mist-mobile.png) |
+| 臺灣 | [查看](home-taiwan-mist-desktop.png) | [查看](home-taiwan-mist-mobile.png) |
+
+煙霧元件的框原本設了 `isolation: isolate`，這會讓框內圖片的 `mix-blend-mode: multiply` 只和透明的框混合，不再和紙紋混合。本次拿掉這項設定，也拿掉霧層的 `z-index`，霧層改依 DOM 順序疊在圖片上方，所以不會蓋過主視覺上的引言。修改後，在減少動態模式下比對截圖：書案圖包進煙霧元件前後逐像素相同；〈春望〉插圖平均色值較 #11 時暗約 8–12，回到 multiply 與紙面混合的效果。
 
 ## 詩句洇墨入場
 
