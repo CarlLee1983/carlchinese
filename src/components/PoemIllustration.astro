@@ -1,12 +1,15 @@
 ---
+import InkMist from './InkMist.astro';
+import type { Illustration } from '../content/illustrations.mjs';
+
 interface Props {
-  illustration: { src: string; alt: string; width: number; height: number };
+  illustration: Illustration;
   eager?: boolean;
 }
 const { illustration, eager = false } = Astro.props;
 ---
 <figure class="poem-illustration" data-poem-illustration>
-  <img src={illustration.src} alt={illustration.alt} width={illustration.width} height={illustration.height} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+  <InkMist mist={illustration.mist}><img src={illustration.src} alt={illustration.alt} width={illustration.width} height={illustration.height} loading={eager ? 'eager' : 'lazy'} decoding="async" /></InkMist>
   <figcaption>意境插圖・人工智慧生成</figcaption>
 </figure>
 <style>

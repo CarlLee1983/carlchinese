@@ -17,6 +17,7 @@ test(`group catalogue and pages expose two readable members while keeping the to
 
   await page.goto(first);
   await expect(page.locator('[data-poem-illustration]')).toHaveCount(0);
+  await expect(page.locator('[data-ink-mist]')).toHaveCount(0);
   await expect(page.getByRole('heading', { level: 1, name: '遣悲懷・其一' })).toBeVisible();
   await expect(page.getByText('底本題名：遣悲懷三首')).toBeVisible();
   const group = page.getByRole('navigation', { name: '組詩導覽' });

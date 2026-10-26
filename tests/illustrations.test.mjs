@@ -20,9 +20,20 @@ for (const [name, change, error] of [
   ['swapped image', r => { r['tang300-098'].src = r['tang300-040'].src; }, /098.*識別不符/],
   ['empty alt', r => { r['tang300-040'].alt = ''; }, /040.*替代文字/],
   ['invalid size', r => { r['tang300-040'].width = 0; }, /040.*尺寸/],
+  ['missing mist decision', r => { delete r['tang300-098'].mist; }, /098.*霧帶/],
+  ['mist outside the image', r => { r['tang300-098'].mist.right = 120; }, /098.*霧帶/],
+  ['non-numeric mist edge', r => { r['tang300-098'].mist.top = '38'; }, /098.*霧帶/],
+  ['vertically inverted mist band', r => { r['tang300-098'].mist.top = 80; }, /098.*霧帶/],
+  ['horizontally inverted mist band', r => { r['tang300-098'].mist.left = 100; }, /098.*霧帶/],
+  ['mist band with extra keys', r => { r['tang300-098'].mist.opacity = 50; }, /098.*霧帶/],
 ]) test(`image validation rejects ${name}`, async () => {
   const records = structuredClone(illustrations); change(records);
   await assert.rejects(validateIllustrations(works, { records }), error);
+});
+test('an explicit null records an indoor scene judged to have no mist', async () => {
+  const records = structuredClone(illustrations); records['tang300-098'].mist = null;
+  const result = await validateIllustrations(works, { records });
+  assert.equal(result['tang300-098'].mist, null);
 });
 test('missing files and identical images saved under different work IDs fail', async () => {
   const publicDirectory = await mkdtemp(path.join(os.tmpdir(), 'poem-art-'));
