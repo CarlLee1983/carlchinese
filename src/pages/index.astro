@@ -41,7 +41,7 @@ const siteArtMist = {
           {works.map((work, i) => <article class="leaf" data-work-id={work.id} id={`sample-${i}`} data-leaf={i}>
 
             {work.illustration && <PoemIllustration illustration={work.illustration} />}
-            <div class="poem-slip"><h3>{work.frontmatter.title}</h3><p class="sample-lines">{work.frontmatter.text.slice(0,4).map(line => <span>{line}</span>)}</p><a class="read-link" href={`/tang300/${work.slug}/`}>讀〈{work.frontmatter.title}〉</a></div>
+            <div class="poem-slip"><h3>{work.frontmatter.title}</h3><p class="sample-lines">{work.frontmatter.text.slice(0,4).map((line, index) => <span style={`--i: ${index}`}>{line}</span>)}</p><a class="read-link" href={`/tang300/${work.slug}/`}>讀〈{work.frontmatter.title}〉</a></div>
           </article>)}
         </div>
       </div>
@@ -77,14 +77,21 @@ const siteArtMist = {
   previewFromLocation();
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (!reduced.matches) {
+    // 待播 class 進入視窗後換成播放 class；待播狀態只由腳本加上，不執行腳本時內容完整
+    const reveals: Record<string, string> = { 'stroke-pending': 'stroke-drawn', 'ink-pending': 'ink-ready' };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-        entry.target.classList.add(entry.target instanceof HTMLImageElement ? 'picture-enter' : 'text-enter');
+        const { classList } = entry.target;
+        const pending = Object.keys(reveals).find(name => classList.contains(name));
+        if (pending) classList.replace(pending, reveals[pending]);
+        else classList.add(entry.target instanceof HTMLImageElement ? 'picture-enter' : 'text-enter');
         observer.unobserve(entry.target);
       });
     }, { threshold: .15 });
-    document.querySelectorAll('.area-art, .section-heading h2, .section-heading p, .poem-choice, .other-areas h2, .other-areas p, .closing, .poem-slip h3, .sample-lines, .read-link, .catalog-note').forEach(element => observer.observe(element));
+    document.querySelectorAll('.section-heading, .area-feature, .site-footer').forEach(element => element.classList.add('stroke-pending'));
+    document.querySelectorAll('.sample-lines').forEach(element => element.classList.add('ink-pending'));
+    document.querySelectorAll('.area-art, .section-heading h2, .section-heading p, .poem-choice, .other-areas h2, .other-areas p, .closing, .poem-slip h3, .read-link, .catalog-note, .stroke-pending, .ink-pending').forEach(element => observer.observe(element));
   }
 </script>
 <style>
@@ -138,7 +145,13 @@ const siteArtMist = {
     h1 img { animation: ink-spread 3200ms var(--ease-in-out) 100ms both, ink-focus 2400ms var(--ease-out) 100ms both; }
     .cover-copy p { animation: ink-settle 1400ms var(--ease-out) 1500ms both; }
     .cover-copy .button { animation: ink-fade 900ms var(--ease-out) 1900ms both; }
+    /* 筆觸由左向右寫出；預覽詩句逐句洇開，詩篇重新顯示時自動重播 */
+    .stroke-pending h2::after, .site-footer.stroke-pending::before { clip-path: inset(0 100% 0 0); }
+    .stroke-drawn h2::after, .site-footer.stroke-drawn::before { animation: stroke-write 1100ms var(--ease-out) 200ms both; }
+    .ink-pending span { opacity: 0; }
+    .ink-ready span { animation: ink-settle 1300ms var(--ease-out) calc(var(--i, 0) * 280ms) both; }
   }
+  @keyframes stroke-write { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
   @keyframes ink-spread { from { --ink-reach: 4%; } to { --ink-reach: 150%; } }
   @keyframes ink-focus { from { filter: blur(10px); opacity: .25; } to { filter: blur(0); opacity: 1; } }
   @keyframes ink-fade { from { opacity: 0; } to { opacity: 1; } }
