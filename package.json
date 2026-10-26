@@ -12,7 +12,8 @@
     "test:browser": "playwright test",
     "verify": "pnpm run check && pnpm run validate:content && pnpm run test:content && pnpm run build && pnpm run test:group-fixture && pnpm run test:browser",
     "build:group-fixture": "CARLCHINESE_GROUP_FIXTURE=1 astro build",
-    "test:group-fixture": "pnpm run build:group-fixture && playwright test --config playwright.group.config.mjs"
+    "test:group-fixture": "pnpm run build:group-fixture && playwright test --config playwright.group.config.mjs",
+    "deploy": "pnpm run verify && wrangler deploy"
   },
   "dependencies": {
     "astro": "7.3.8",
@@ -25,6 +26,7 @@
     "@astrojs/check": "0.9.10",
     "@playwright/test": "1.64.1",
     "@types/node": "^24.19.2",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "wrangler": "4.150.0"
   }
 }
