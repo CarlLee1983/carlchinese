@@ -64,7 +64,7 @@ const family = work.sections.find((section) => section.title === '親子共學')
         <div class:list={["original-spread", { illustrated: Boolean(work.illustration) } ]}>
         {work.illustration && <PoemIllustration illustration={work.illustration} eager />}
         <div class="poem">
-          {text.map((line) => <p data-poem-line>{line}</p>)}
+          {text.map((line, index) => <p data-poem-line style={`--i: ${index}`}>{line}</p>)}
         </div>
         </div>
         <p class="punctuation">標點為本站編輯所加</p>

@@ -1,8 +1,8 @@
-# 逐首插圖煙霧驗收證據
+# 水墨動態驗收證據
 
-2026-10-26，對應 [#11](https://github.com/CarlLee1983/carlchinese/issues/11)。在本地 Chromium 實際建置頁面，桌機 1280 × 900、手機 375 × 812。主代理檢視了下列插圖截圖：〈春望〉的河面與遠山有淡霧，人物、殘垣與花鳥都沒有被遮住；〈靜夜思〉是室內場景，畫面上沒有霧。煙霧會持續飄動，截圖只是某一瞬間的畫面。霧層是否存在、位置與版面框是否正確，由 Playwright 逐首比對。
+2026-10-26，對應 [#11](https://github.com/CarlLee1983/carlchinese/issues/11) 逐首插圖煙霧與 [#12](https://github.com/CarlLee1983/carlchinese/issues/12) 作品頁詩句洇墨入場。在本地 Chromium 實際建置頁面，桌機 1280 × 900、手機 375 × 812。主代理檢視了下列插圖截圖：〈春望〉的河面與遠山有淡霧，人物、殘垣與花鳥都沒有被遮住；〈靜夜思〉是室內場景，畫面上沒有霧。煙霧會持續飄動，截圖只是某一瞬間的畫面。霧層是否存在、位置與版面框是否正確，由 Playwright 逐首比對。
 
-[完整 verify 輸出](verify.log)：Astro check 0 錯誤、58 個 Node 測試、2 個組詩瀏覽器測試、38 個正式瀏覽器測試全部通過。
+[完整 verify 輸出](verify.log)：Astro check 0 錯誤、58 個 Node 測試、2 個組詩瀏覽器測試、42 個正式瀏覽器測試全部通過（含 #12 完成後的狀態）。
 
 | 插圖 | 霧帶判定 | 桌機 | 手機 |
 | --- | --- | --- | --- |
@@ -24,6 +24,10 @@ cwebp -q 80 -alpha_q 70 mist.png -o public/art/mist.webp
 
 輸出約 65 KB。重新產生時，要和既有材質並排目視比較，確認濃淡和紋理方向相同。
 
+## 詩句洇墨入場
+
+〈春望〉桌機 1280 × 900，進頁 1500ms 時的[入場中途](098-poem-ink-mid.png)：前四句已成濃墨，第五句仍帶模糊與淡色，其後尚未出現。所有動畫 `finished` 後的[最終狀態](098-poem-ink-final.png)：八句都清楚。逐句順序、最終不透明、減少動態與不執行腳本時的可見性，由 `tests/browser/poem-ink.spec.mjs` 逐首檢查。
+
 ## 未驗證
 
-iPhone Safari 真機效能、霧長時間播放時的接縫，留給 [#16](https://github.com/CarlLee1983/carlchinese/issues/16)。
+iPhone Safari 真機效能（含詩句 blur 動畫）、霧長時間播放時的接縫，留給 [#16](https://github.com/CarlLee1983/carlchinese/issues/16)。

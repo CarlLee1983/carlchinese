@@ -100,3 +100,12 @@ p { text-wrap: pretty; }
 .original-spread.illustrated { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 1fr); gap: 4vw; align-items: center; }
 .original-spread .poem { padding: 32px 0; text-align: center; }
 @media(max-width: 900px) { .original-spread.illustrated { grid-template-columns: 1fr; gap: 16px; } }
+/* 詩句由淡墨逐句洇成濃墨；隱藏的起始狀態只在允許動態時存在 */
+@media(prefers-reduced-motion: no-preference) {
+  [data-poem-line] { animation: ink-settle 1300ms var(--ease-out) calc(400ms + var(--i, 0) * 280ms) both; }
+  @keyframes ink-settle {
+    from { opacity: 0; filter: blur(6px); color: var(--muted); }
+    55% { opacity: .85; filter: blur(.5px); }
+    to { opacity: 1; filter: blur(0); }
+  }
+}
