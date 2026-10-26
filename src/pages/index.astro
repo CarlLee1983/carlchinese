@@ -84,14 +84,20 @@ const siteArtMist = {
         observer.unobserve(entry.target);
       });
     }, { threshold: .15 });
-    document.querySelectorAll('.cover h1 img, .area-art, .cover-copy p, .cover-copy .button, .section-heading h2, .section-heading p, .poem-choice, .other-areas h2, .other-areas p, .closing, .poem-slip h3, .sample-lines, .read-link, .catalog-note').forEach(element => observer.observe(element));
+    document.querySelectorAll('.area-art, .section-heading h2, .section-heading p, .poem-choice, .other-areas h2, .other-areas p, .closing, .poem-slip h3, .sample-lines, .read-link, .catalog-note').forEach(element => observer.observe(element));
   }
 </script>
 <style>
   main { width: 100%; }
   .cover { position: relative; isolation: isolate; }
   h1 { margin: 0; line-height: 0; }
-  h1 img { width: 100%; height: auto; display: block; mix-blend-mode: multiply; mask-image: linear-gradient(to bottom, #000 88%, transparent); }
+  /* 墨暈的放射遮罩；初始值讓遮罩完全打開，不支援或沒有動畫時直接完整顯示 */
+  @property --ink-reach { syntax: '<percentage>'; inherits: false; initial-value: 150%; }
+  h1 img {
+    width: 100%; height: auto; display: block; mix-blend-mode: multiply;
+    mask-image: radial-gradient(circle at 28% 48%, #000 calc(var(--ink-reach) - 18%), transparent var(--ink-reach)), linear-gradient(to bottom, #000 88%, transparent);
+    mask-composite: intersect;
+  }
   .cover-copy { position: absolute; left: 8%; bottom: 14%; max-width: 40%; }
   .cover-copy p { font-size: 18px; margin: 0 0 24px; }
   .classics, .other-areas { margin: clamp(80px, 9vw, 180px) auto 0; width: 100%; padding-inline: 7vw; }
@@ -127,6 +133,15 @@ const siteArtMist = {
   :global(.picture-enter) { animation: picture-arrive 1100ms ease-out both; }
   @keyframes text-arrive { from { opacity: .35; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes picture-arrive { from { opacity: .6; } to { opacity: 1; } }
+  /* 主視覺：墨從題字處落下向外洇開，引言隨後洇墨，按鈕只淡入 */
+  @media(prefers-reduced-motion: no-preference) {
+    h1 img { animation: ink-spread 3200ms var(--ease-in-out) 100ms both, ink-focus 2400ms var(--ease-out) 100ms both; }
+    .cover-copy p { animation: ink-settle 1400ms var(--ease-out) 1500ms both; }
+    .cover-copy .button { animation: ink-fade 900ms var(--ease-out) 1900ms both; }
+  }
+  @keyframes ink-spread { from { --ink-reach: 4%; } to { --ink-reach: 150%; } }
+  @keyframes ink-focus { from { filter: blur(10px); opacity: .25; } to { filter: blur(0); opacity: 1; } }
+  @keyframes ink-fade { from { opacity: 0; } to { opacity: 1; } }
   @media(max-width: 900px) { .cover-copy { bottom: 6%; } .cover-copy p { font-size: 16px; } .classics { margin-top: 80px; } .leaf { grid-template-columns: 1fr; padding-inline: 0; } }
   @media(max-width: 700px) { .cover-copy { position: static; max-width: none; margin: 24px 7vw 0; } }
   @media(max-width: 600px) {

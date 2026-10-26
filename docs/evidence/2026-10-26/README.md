@@ -36,6 +36,19 @@ cwebp -q 80 -alpha_q 70 mist.png -o public/art/mist.webp
 
 煙霧元件的框原本設了 `isolation: isolate`，這會讓框內圖片的 `mix-blend-mode: multiply` 只和透明的框混合，不再和紙紋混合。本次拿掉這項設定，也拿掉霧層的 `z-index`，霧層改依 DOM 順序疊在圖片上方，所以不會蓋過主視覺上的引言。修改後，在減少動態模式下比對截圖：書案圖包進煙霧元件前後逐像素相同；〈春望〉插圖平均色值較 #11 時暗約 8–12，回到 multiply 與紙面混合的效果。
 
+## 首頁主視覺墨暈
+
+截圖方式：把主視覺、引言與按鈕的動畫定格在指定時刻後擷取。主代理依序檢視：300ms 只有題字處落下一點淡墨；900ms 題字「文」與周圍浮現，仍帶模糊；1700ms 接近全圖，引言正在洇墨，按鈕還沒出現；4000ms 全圖、引言與按鈕都已穩定。動畫結束後不殘留模糊與遮罩，減少動態、不執行腳本時都立即完整顯示，按鈕在入場過程中始終不模糊；這些由 `tests/browser/home-hero.spec.mjs` 檢查。
+
+| 時刻 | 桌機 1440 | 手機 390 |
+| --- | --- | --- |
+| 300ms | [查看](hero-ink-300ms-desktop.png) | [查看](hero-ink-300ms-mobile.png) |
+| 900ms | [查看](hero-ink-900ms-desktop.png) | [查看](hero-ink-900ms-mobile.png) |
+| 1700ms | [查看](hero-ink-1700ms-desktop.png) | [查看](hero-ink-1700ms-mobile.png) |
+| 4000ms | [查看](hero-ink-4000ms-desktop.png) | [查看](hero-ink-4000ms-mobile.png) |
+
+驅動遮罩的自訂屬性命名為 `--ink-reach`。原型用的名稱是 `--ink`，但站上的 `--ink` 已經是墨色 token，沿用會衝突。
+
 ## 詩句洇墨入場
 
 〈春望〉桌機 1280 × 900，進頁 1500ms 時的[入場中途](098-poem-ink-mid.png)：前四句已成濃墨，第五句仍帶模糊與淡色，其後尚未出現。所有動畫 `finished` 後的[最終狀態](098-poem-ink-final.png)：八句都清楚。逐句順序、最終不透明、減少動態與不執行腳本時的可見性，由 `tests/browser/poem-ink.spec.mjs` 逐首檢查。
