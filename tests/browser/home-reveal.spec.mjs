@@ -43,7 +43,9 @@ for (const width of [390, 1440]) test(`preview lines settle from pale ink for ev
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
   await page.setViewportSize({ width, height: 900 });
   await page.goto('/');
-  for (const leaf of [0, 1, 2, 0]) {
+  // 依序點選每一首詩，最後回到第一首確認重新洇開
+  const count = await page.locator('[data-preview]').count();
+  for (const leaf of [...Array(count).keys(), 0]) {
     await page.locator(`[data-preview="${leaf}"]`).click();
     const lines = page.locator(`[data-leaf="${leaf}"] .sample-lines span`);
     // 換上的詩句重新洇開

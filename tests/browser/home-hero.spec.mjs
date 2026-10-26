@@ -20,7 +20,7 @@ for (const width of [390, 1440]) test(`the hero spreads from a drop of ink and i
   await page.goto('/');
   const entrances = await page.evaluate(selectors => selectors.map(selector => document.querySelector(selector).getAnimations().length), [hero, quote, button]);
   for (const count of entrances) expect(count).toBeGreaterThan(0);
-  // 按鈕只淡入：入場過程中任何時刻都不模糊
+  // 按鈕只淡入：入場過程中任何時刻都不模糊；取樣涵蓋淡入前、開始（1900ms）、中途與結束（2800ms）
   const buttonFilters = await page.locator(button).evaluate(element => [0, 900, 1900, 2300, 2800].map(time => {
     for (const animation of element.getAnimations()) { animation.pause(); animation.currentTime = time; }
     return getComputedStyle(element).filter;
@@ -54,6 +54,7 @@ test('the catalogue button keeps its keyboard focus order and focus style', asyn
   const focusPath = async () => {
     await page.goto('/');
     const path = [];
+    // 前幾個 Tab 涵蓋頁首連結與目錄按鈕
     for (let step = 0; step < 6; step++) {
       await page.keyboard.press('Tab');
       path.push(await page.evaluate(() => document.activeElement.textContent.trim()));

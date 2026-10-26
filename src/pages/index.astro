@@ -102,7 +102,7 @@ const siteArtMist = {
   @property --ink-reach { syntax: '<percentage>'; inherits: false; initial-value: 150%; }
   h1 img {
     width: 100%; height: auto; display: block; mix-blend-mode: multiply;
-    mask-image: radial-gradient(circle at 28% 48%, #000 calc(var(--ink-reach) - 18%), transparent var(--ink-reach)), linear-gradient(to bottom, #000 88%, transparent);
+    mask-image: radial-gradient(circle at 28% 48%, #000 calc(var(--ink-reach, 150%) - 18%), transparent var(--ink-reach, 150%)), linear-gradient(to bottom, #000 88%, transparent);
     mask-composite: intersect;
   }
   .cover-copy { position: absolute; left: 8%; bottom: 14%; max-width: 40%; }
