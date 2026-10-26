@@ -1,0 +1,37 @@
+---
+import type { MistBand } from '../content/illustrations.mjs';
+
+interface Props {
+  /** null 表示判斷過、不加霧 */
+  mist: MistBand | null;
+}
+const { mist } = Astro.props;
+const bandStyle = mist && Object.fromEntries(Object.entries(mist).map(([edge, value]) => [`--mist-${edge}`, `${value}%`]));
+---
+{bandStyle ? (
+  <span class="frame" data-ink-mist-frame>
+    <slot />
+    <span class="mist" style={bandStyle} data-ink-mist aria-hidden="true"></span>
+  </span>
+) : <slot />}
+<style>
+  /* 不另建堆疊脈絡：圖片的 multiply 要和紙面混合，霧層也不能蓋過疊在圖上的文字 */
+  .frame { position: relative; display: block; }
+  /* 霧只留在逐圖標示的霧帶裡，四邊淡出，不留矩形邊界；霧層排在圖片之後，靠 DOM 順序疊在圖上 */
+  .mist {
+    position: absolute; overflow: hidden; pointer-events: none;
+    top: var(--mist-top); bottom: calc(100% - var(--mist-bottom)); left: var(--mist-left); right: calc(100% - var(--mist-right));
+    mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 65%, transparent), linear-gradient(to right, transparent, #000 20%, #000 80%, transparent);
+    mask-composite: intersect;
+  }
+  .mist::before, .mist::after {
+    content: ''; position: absolute; inset: 0 auto 0 0; width: 200%;
+    background: url('/art/mist.webp') 0 0 / 50% 100% repeat-x;
+    will-change: transform;
+  }
+  .mist::before { opacity: .7; animation: drift 90s linear infinite; }
+  .mist::after { opacity: .45; animation: drift-back 140s linear infinite; }
+  @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes drift-back { from { transform: translateX(-50%) scaleY(-1); } to { transform: translateX(0) scaleY(-1); } }
+  @media (prefers-reduced-motion: reduce) { .mist { display: none; } }
+</style>
